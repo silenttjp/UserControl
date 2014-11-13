@@ -1,0 +1,4 @@
+idg_user_control:
+    resource: "@IDGUserControlBundle/Resources/config/routing.yml"
+    prefix:   /
+

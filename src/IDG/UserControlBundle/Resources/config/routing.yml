@@ -1,0 +1,3 @@
+idg_user_control_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: IDGUserControlBundle:Default:index }

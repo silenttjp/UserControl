@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<database
+    name="default"
+   namespace="IDG\UserControlBundle\Models"
+
+    defaultIdMethod="native">
+
+    <table name="User" phpName="User">
+      	<vendor type="mysql">
+    		<parameter name="Engine" value="InnoDB"/>
+    		<parameter name="Charset" value="utf8"/>
+  	    </vendor>
+        <column
+            name="ID"
+            type="integer"
+            required="true"
+            primaryKey="true"
+            autoIncrement="true" />
+
+        <column
+            name="First_Name"
+            type="varchar"
+            primaryString="true"
+            size="100" />
+        
+        <column
+            name="Last_Name"
+            type="varchar"
+            primaryString="true"
+            size="100" />		
+    </table>
+    <table name="Lists" phpName="Lists">
+      	<vendor type="mysql">
+    		<parameter name="Engine" value="InnoDB"/>
+    		<parameter name="Charset" value="utf8"/>
+  	    </vendor>
+    	<column
+            name="ID"
+            type="integer"
+            required="true"
+            primaryKey="true"
+            autoIncrement="true" />
+            
+        <column
+        	name="Name"
+            type="varchar"
+            primaryString="true"
+            size="100" />
+        <column 
+        	name="Active" 
+        	type="integer" />
+    </table>
+    <table name="User_List" phpName="User_List">
+      	<vendor type="mysql">
+    		<parameter name="Engine" value="InnoDB"/>
+    		<parameter name="Charset" value="utf8"/>
+  	    </vendor>
+    	<column
+            name="ID"
+            type="integer"
+            required="true"
+            primaryKey="true"
+            autoIncrement="true" />
+        
+        <column
+            name="User_ID"
+            type="integer"
+            required="true" />
+        
+        <column
+            name="List_ID"
+            type="integer"
+            required="true" />
+        
+        <column
+            name="Date_Added"
+            type="timestamp"
+            required="true" />
+   		<foreign-key foreignTable="User" phpName="User" refPhpName="User_List">
+      		<reference local="User_ID" foreign="ID"/>
+    	</foreign-key>
+    	<foreign-key foreignTable="Lists" phpName="Lists" refPhpName="User_List">
+      		<reference local="List_ID" foreign="ID"/>
+    	</foreign-key>
+    
+    </table>
+</database>

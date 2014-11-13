@@ -1,0 +1,4 @@
+services:
+#    idg_user_control.example:
+#        class: IDG\UserControlBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
