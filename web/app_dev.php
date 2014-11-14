@@ -1,5 +1,5 @@
 <?php
-ini_set('error_reporting', E_ALL);
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
 
@@ -19,17 +19,12 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
 */
 $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 Debug::enable();
-echo '1';
+
 require_once __DIR__.'/../app/AppKernel.php';
-echo '24';
+
 $kernel = new AppKernel('dev', true);
-echo '25';
 $kernel->loadClassCache();
-echo '28';
 $request = Request::createFromGlobals();
-echo '30';
 $response = $kernel->handle($request);
-echo '31';
 $response->send();
-echo '302';
 $kernel->terminate($request, $response);

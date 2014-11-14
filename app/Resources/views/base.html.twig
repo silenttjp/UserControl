@@ -3,25 +3,11 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% stylesheets '@bootstrap' %}
-    		<link rel="stylesheet" href="{{ asset_url }}" />
-		{% endstylesheets %}
+        {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
         {% block body %}{% endblock %}
-        {% javascripts
-    		'@jquery'
-     	filter='cssrewrite' %}
-   			 <script src="{{ asset_url }}"></script>
-		{% endjavascripts %}
-		    <script>
-    $( document ).ready(function() {
-        $("#add_user").click(function(){
-            alert('here');
-            
-         });
-    }) 
-    </script> 
+        {% block javascripts %}{% endblock %}
     </body>
 </html>

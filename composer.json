@@ -6,7 +6,6 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
-    
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.4.*",
@@ -22,9 +21,7 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/jsrouting-bundle": "2.0.*@dev", 
         "propel/propel-bundle": "1.4.*"
-
 },
-
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
