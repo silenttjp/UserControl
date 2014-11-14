@@ -18,7 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Propel\PropelBundle\PropelBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new IDG\UserControlBundle\IDGUserControlBundle(),
+            new IDG\UserControlBundle\IDGUserControlBundle()
 
         );
 
