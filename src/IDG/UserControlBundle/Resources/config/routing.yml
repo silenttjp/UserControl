@@ -1,3 +1,4 @@
 idg_user_control_homepage:
     path:     /
     defaults: { _controller: IDGUserControlBundle:UserList:index }
+
