@@ -11,6 +11,6 @@ class DefaultController extends Controller
     {
         $Users = UserQuery::create()->find();
         print_r($Users->ToArray());
-        return $this->render('IDGUserControlBundle:User:user.html.twig');
+        return $this->render('IDGUserControlBundle:User:user.html.twig', array('users' => $Users->ToArray(),  'user_count' => count($Users)));
     }
 }
