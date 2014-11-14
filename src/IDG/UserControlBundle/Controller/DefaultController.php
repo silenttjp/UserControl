@@ -7,7 +7,7 @@ use IDG\UserControlBundle\Models\UserQuery;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
+    public function indexAction()
     {
         $Users = UserQuery::create()->find();
         print_r($Users);
