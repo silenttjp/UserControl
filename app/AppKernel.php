@@ -18,8 +18,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Propel\PropelBundle\PropelBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new IDG\UserControlBundle\IDGUserControlBundle()
-
+            new IDG\UserControlBundle\IDGUserControlBundle(),
+            new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
