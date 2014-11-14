@@ -24,6 +24,7 @@
         "propel/propel-bundle": "1.4.*"
 
 },
+
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
