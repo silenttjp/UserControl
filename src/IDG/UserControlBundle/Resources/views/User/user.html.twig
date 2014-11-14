@@ -1,0 +1,21 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            User panel:  
+            <button class="btn btn-xs btn-primary" type="button">
+                 Number Of Users: <span class="badge">{{ user_count }}</span>
+            </button>
+            <button class="btn btn-xs btn-success align-right" id="add_user" type="button">
+                Add User
+            </button>
+            
+          </div>
+        </div>
+    </div>
+        {% for user in users %}
+            <p>{{ user.FirstName }} {{ user.LastName }}</p>
+        {% endfor %}
+        
+{% endblock %}
