@@ -44,7 +44,7 @@ assetic:
     use_controller: false
     bundles:        [ IDGUserControlBundle ]
     assets:
-         jquery:
+         jquery2:
               inputs:
                    - '%kernel.root_dir%/Resources/public/jquery/jquery-2.1.1.js'
          bootstrap:
