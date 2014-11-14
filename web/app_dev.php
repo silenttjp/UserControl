@@ -1,5 +1,5 @@
 <?php
-
+ini_set('error_reporting', E_ALL);
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
 
@@ -23,6 +23,7 @@ echo '1';
 require_once __DIR__.'/../app/AppKernel.php';
 echo '24';
 $kernel = new AppKernel('dev', true);
+echo '25';
 $kernel->loadClassCache();
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
