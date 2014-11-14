@@ -7,10 +7,10 @@ use IDG\UserControlBundle\Models\UserQuery;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
+    public function indexAction()
     {
         $Users = UserQuery::create()->find();
         print_r($Users);
-        return $this->render('IDGUserControlBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('IDGUserControlBundle:User:user.html.twig', array('name' => $name));
     }
 }
