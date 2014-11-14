@@ -9,7 +9,8 @@ class DefaultController extends Controller
 {
     public function indexAction($name)
     {
-        $lists = new Lists();
+        $Users = UserQuery::create()->find();
+        print_r($Users);
         return $this->render('IDGUserControlBundle:Default:index.html.twig', array('name' => $name));
     }
 }
