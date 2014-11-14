@@ -3,7 +3,7 @@
 namespace IDG\UserControlBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use IDG\UserControlBundle\Models\Lists;
+use IDG\UserControlBundle\Models\UserQuery;
 
 class DefaultController extends Controller
 {
