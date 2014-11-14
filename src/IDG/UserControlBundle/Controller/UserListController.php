@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Project\UserBundle\Controller;
+namespace IDG\UserControlBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
