@@ -15,7 +15,7 @@ use \PropelPDO;
 use IDG\UserControlBundle\Models\Lists;
 use IDG\UserControlBundle\Models\ListsPeer;
 use IDG\UserControlBundle\Models\ListsQuery;
-use IDG\UserControlBundle\Models\User_List;
+use IDG\UserControlBundle\Models\UserList;
 
 /**
  * @method ListsQuery orderById($order = Criteria::ASC) Order by the ID column
@@ -30,9 +30,9 @@ use IDG\UserControlBundle\Models\User_List;
  * @method ListsQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method ListsQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method ListsQuery leftJoinUser_List($relationAlias = null) Adds a LEFT JOIN clause to the query using the User_List relation
- * @method ListsQuery rightJoinUser_List($relationAlias = null) Adds a RIGHT JOIN clause to the query using the User_List relation
- * @method ListsQuery innerJoinUser_List($relationAlias = null) Adds a INNER JOIN clause to the query using the User_List relation
+ * @method ListsQuery leftJoinUserList($relationAlias = null) Adds a LEFT JOIN clause to the query using the UserList relation
+ * @method ListsQuery rightJoinUserList($relationAlias = null) Adds a RIGHT JOIN clause to the query using the UserList relation
+ * @method ListsQuery innerJoinUserList($relationAlias = null) Adds a INNER JOIN clause to the query using the UserList relation
  *
  * @method Lists findOne(PropelPDO $con = null) Return the first Lists matching the query
  * @method Lists findOneOrCreate(PropelPDO $con = null) Return the first Lists matching the query, or a new Lists object populated from the query conditions when no match is found
@@ -351,41 +351,41 @@ abstract class BaseListsQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related User_List object
+     * Filter the query by a related UserList object
      *
-     * @param   User_List|PropelObjectCollection $user_List  the related object to use as filter
+     * @param   UserList|PropelObjectCollection $userList  the related object to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return                 ListsQuery The current query, for fluid interface
      * @throws PropelException - if the provided filter is invalid.
      */
-    public function filterByUser_List($user_List, $comparison = null)
+    public function filterByUserList($userList, $comparison = null)
     {
-        if ($user_List instanceof User_List) {
+        if ($userList instanceof UserList) {
             return $this
-                ->addUsingAlias(ListsPeer::ID, $user_List->getListId(), $comparison);
-        } elseif ($user_List instanceof PropelObjectCollection) {
+                ->addUsingAlias(ListsPeer::ID, $userList->getListId(), $comparison);
+        } elseif ($userList instanceof PropelObjectCollection) {
             return $this
-                ->useUser_ListQuery()
-                ->filterByPrimaryKeys($user_List->getPrimaryKeys())
+                ->useUserListQuery()
+                ->filterByPrimaryKeys($userList->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByUser_List() only accepts arguments of type User_List or PropelCollection');
+            throw new PropelException('filterByUserList() only accepts arguments of type UserList or PropelCollection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the User_List relation
+     * Adds a JOIN clause to the query using the UserList relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return ListsQuery The current query, for fluid interface
      */
-    public function joinUser_List($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinUserList($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('User_List');
+        $relationMap = $tableMap->getRelation('UserList');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -400,14 +400,14 @@ abstract class BaseListsQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'User_List');
+            $this->addJoinObject($join, 'UserList');
         }
 
         return $this;
     }
 
     /**
-     * Use the User_List relation User_List object
+     * Use the UserList relation UserList object
      *
      * @see       useQuery()
      *
@@ -415,13 +415,13 @@ abstract class BaseListsQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return   \IDG\UserControlBundle\Models\User_ListQuery A secondary query class using the current class as primary query
+     * @return   \IDG\UserControlBundle\Models\UserListQuery A secondary query class using the current class as primary query
      */
-    public function useUser_ListQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useUserListQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinUser_List($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'User_List', '\IDG\UserControlBundle\Models\User_ListQuery');
+            ->joinUserList($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'UserList', '\IDG\UserControlBundle\Models\UserListQuery');
     }
 
     /**

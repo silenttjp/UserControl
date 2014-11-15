@@ -14,10 +14,10 @@ use \PropelException;
 use \PropelObjectCollection;
 use \PropelPDO;
 use IDG\UserControlBundle\Models\User;
+use IDG\UserControlBundle\Models\UserList;
+use IDG\UserControlBundle\Models\UserListQuery;
 use IDG\UserControlBundle\Models\UserPeer;
 use IDG\UserControlBundle\Models\UserQuery;
-use IDG\UserControlBundle\Models\User_List;
-use IDG\UserControlBundle\Models\User_ListQuery;
 
 abstract class BaseUser extends BaseObject implements Persistent
 {
@@ -59,10 +59,10 @@ abstract class BaseUser extends BaseObject implements Persistent
     protected $last_name;
 
     /**
-     * @var        PropelObjectCollection|User_List[] Collection to store aggregation of User_List objects.
+     * @var        PropelObjectCollection|UserList[] Collection to store aggregation of UserList objects.
      */
-    protected $collUser_Lists;
-    protected $collUser_ListsPartial;
+    protected $collUserLists;
+    protected $collUserListsPartial;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -88,7 +88,7 @@ abstract class BaseUser extends BaseObject implements Persistent
      * An array of objects scheduled for deletion.
      * @var		PropelObjectCollection
      */
-    protected $user_ListsScheduledForDeletion = null;
+    protected $userListsScheduledForDeletion = null;
 
     /**
      * Get the [id] column value.
@@ -292,7 +292,7 @@ abstract class BaseUser extends BaseObject implements Persistent
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->collUser_Lists = null;
+            $this->collUserLists = null;
 
         } // if (deep)
     }
@@ -418,17 +418,17 @@ abstract class BaseUser extends BaseObject implements Persistent
                 $this->resetModified();
             }
 
-            if ($this->user_ListsScheduledForDeletion !== null) {
-                if (!$this->user_ListsScheduledForDeletion->isEmpty()) {
-                    User_ListQuery::create()
-                        ->filterByPrimaryKeys($this->user_ListsScheduledForDeletion->getPrimaryKeys(false))
+            if ($this->userListsScheduledForDeletion !== null) {
+                if (!$this->userListsScheduledForDeletion->isEmpty()) {
+                    UserListQuery::create()
+                        ->filterByPrimaryKeys($this->userListsScheduledForDeletion->getPrimaryKeys(false))
                         ->delete($con);
-                    $this->user_ListsScheduledForDeletion = null;
+                    $this->userListsScheduledForDeletion = null;
                 }
             }
 
-            if ($this->collUser_Lists !== null) {
-                foreach ($this->collUser_Lists as $referrerFK) {
+            if ($this->collUserLists !== null) {
+                foreach ($this->collUserLists as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -589,8 +589,8 @@ abstract class BaseUser extends BaseObject implements Persistent
             }
 
 
-                if ($this->collUser_Lists !== null) {
-                    foreach ($this->collUser_Lists as $referrerFK) {
+                if ($this->collUserLists !== null) {
+                    foreach ($this->collUserLists as $referrerFK) {
                         if (!$referrerFK->validate($columns)) {
                             $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
                         }
@@ -680,8 +680,8 @@ abstract class BaseUser extends BaseObject implements Persistent
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->collUser_Lists) {
-                $result['User_Lists'] = $this->collUser_Lists->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            if (null !== $this->collUserLists) {
+                $result['UserLists'] = $this->collUserLists->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -840,9 +840,9 @@ abstract class BaseUser extends BaseObject implements Persistent
             // store object hash to prevent cycle
             $this->startCopy = true;
 
-            foreach ($this->getUser_Lists() as $relObj) {
+            foreach ($this->getUserLists() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addUser_List($relObj->copy($deepCopy));
+                    $copyObj->addUserList($relObj->copy($deepCopy));
                 }
             }
 
@@ -907,42 +907,42 @@ abstract class BaseUser extends BaseObject implements Persistent
      */
     public function initRelation($relationName)
     {
-        if ('User_List' == $relationName) {
-            $this->initUser_Lists();
+        if ('UserList' == $relationName) {
+            $this->initUserLists();
         }
     }
 
     /**
-     * Clears out the collUser_Lists collection
+     * Clears out the collUserLists collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
      * them to be refetched by subsequent calls to accessor method.
      *
      * @return User The current object (for fluent API support)
-     * @see        addUser_Lists()
+     * @see        addUserLists()
      */
-    public function clearUser_Lists()
+    public function clearUserLists()
     {
-        $this->collUser_Lists = null; // important to set this to null since that means it is uninitialized
-        $this->collUser_ListsPartial = null;
+        $this->collUserLists = null; // important to set this to null since that means it is uninitialized
+        $this->collUserListsPartial = null;
 
         return $this;
     }
 
     /**
-     * reset is the collUser_Lists collection loaded partially
+     * reset is the collUserLists collection loaded partially
      *
      * @return void
      */
-    public function resetPartialUser_Lists($v = true)
+    public function resetPartialUserLists($v = true)
     {
-        $this->collUser_ListsPartial = $v;
+        $this->collUserListsPartial = $v;
     }
 
     /**
-     * Initializes the collUser_Lists collection.
+     * Initializes the collUserLists collection.
      *
-     * By default this just sets the collUser_Lists collection to an empty array (like clearcollUser_Lists());
+     * By default this just sets the collUserLists collection to an empty array (like clearcollUserLists());
      * however, you may wish to override this method in your stub class to provide setting appropriate
      * to your application -- for example, setting the initial array to the values stored in database.
      *
@@ -951,17 +951,17 @@ abstract class BaseUser extends BaseObject implements Persistent
      *
      * @return void
      */
-    public function initUser_Lists($overrideExisting = true)
+    public function initUserLists($overrideExisting = true)
     {
-        if (null !== $this->collUser_Lists && !$overrideExisting) {
+        if (null !== $this->collUserLists && !$overrideExisting) {
             return;
         }
-        $this->collUser_Lists = new PropelObjectCollection();
-        $this->collUser_Lists->setModel('User_List');
+        $this->collUserLists = new PropelObjectCollection();
+        $this->collUserLists->setModel('UserList');
     }
 
     /**
-     * Gets an array of User_List objects which contain a foreign key that references this object.
+     * Gets an array of UserList objects which contain a foreign key that references this object.
      *
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
@@ -971,107 +971,107 @@ abstract class BaseUser extends BaseObject implements Persistent
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
      * @param PropelPDO $con optional connection object
-     * @return PropelObjectCollection|User_List[] List of User_List objects
+     * @return PropelObjectCollection|UserList[] List of UserList objects
      * @throws PropelException
      */
-    public function getUser_Lists($criteria = null, PropelPDO $con = null)
+    public function getUserLists($criteria = null, PropelPDO $con = null)
     {
-        $partial = $this->collUser_ListsPartial && !$this->isNew();
-        if (null === $this->collUser_Lists || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collUser_Lists) {
+        $partial = $this->collUserListsPartial && !$this->isNew();
+        if (null === $this->collUserLists || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collUserLists) {
                 // return empty collection
-                $this->initUser_Lists();
+                $this->initUserLists();
             } else {
-                $collUser_Lists = User_ListQuery::create(null, $criteria)
+                $collUserLists = UserListQuery::create(null, $criteria)
                     ->filterByUser($this)
                     ->find($con);
                 if (null !== $criteria) {
-                    if (false !== $this->collUser_ListsPartial && count($collUser_Lists)) {
-                      $this->initUser_Lists(false);
+                    if (false !== $this->collUserListsPartial && count($collUserLists)) {
+                      $this->initUserLists(false);
 
-                      foreach ($collUser_Lists as $obj) {
-                        if (false == $this->collUser_Lists->contains($obj)) {
-                          $this->collUser_Lists->append($obj);
+                      foreach ($collUserLists as $obj) {
+                        if (false == $this->collUserLists->contains($obj)) {
+                          $this->collUserLists->append($obj);
                         }
                       }
 
-                      $this->collUser_ListsPartial = true;
+                      $this->collUserListsPartial = true;
                     }
 
-                    $collUser_Lists->getInternalIterator()->rewind();
+                    $collUserLists->getInternalIterator()->rewind();
 
-                    return $collUser_Lists;
+                    return $collUserLists;
                 }
 
-                if ($partial && $this->collUser_Lists) {
-                    foreach ($this->collUser_Lists as $obj) {
+                if ($partial && $this->collUserLists) {
+                    foreach ($this->collUserLists as $obj) {
                         if ($obj->isNew()) {
-                            $collUser_Lists[] = $obj;
+                            $collUserLists[] = $obj;
                         }
                     }
                 }
 
-                $this->collUser_Lists = $collUser_Lists;
-                $this->collUser_ListsPartial = false;
+                $this->collUserLists = $collUserLists;
+                $this->collUserListsPartial = false;
             }
         }
 
-        return $this->collUser_Lists;
+        return $this->collUserLists;
     }
 
     /**
-     * Sets a collection of User_List objects related by a one-to-many relationship
+     * Sets a collection of UserList objects related by a one-to-many relationship
      * to the current object.
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
      *
-     * @param PropelCollection $user_Lists A Propel collection.
+     * @param PropelCollection $userLists A Propel collection.
      * @param PropelPDO $con Optional connection object
      * @return User The current object (for fluent API support)
      */
-    public function setUser_Lists(PropelCollection $user_Lists, PropelPDO $con = null)
+    public function setUserLists(PropelCollection $userLists, PropelPDO $con = null)
     {
-        $user_ListsToDelete = $this->getUser_Lists(new Criteria(), $con)->diff($user_Lists);
+        $userListsToDelete = $this->getUserLists(new Criteria(), $con)->diff($userLists);
 
 
-        $this->user_ListsScheduledForDeletion = $user_ListsToDelete;
+        $this->userListsScheduledForDeletion = $userListsToDelete;
 
-        foreach ($user_ListsToDelete as $user_ListRemoved) {
-            $user_ListRemoved->setUser(null);
+        foreach ($userListsToDelete as $userListRemoved) {
+            $userListRemoved->setUser(null);
         }
 
-        $this->collUser_Lists = null;
-        foreach ($user_Lists as $user_List) {
-            $this->addUser_List($user_List);
+        $this->collUserLists = null;
+        foreach ($userLists as $userList) {
+            $this->addUserList($userList);
         }
 
-        $this->collUser_Lists = $user_Lists;
-        $this->collUser_ListsPartial = false;
+        $this->collUserLists = $userLists;
+        $this->collUserListsPartial = false;
 
         return $this;
     }
 
     /**
-     * Returns the number of related User_List objects.
+     * Returns the number of related UserList objects.
      *
      * @param Criteria $criteria
      * @param boolean $distinct
      * @param PropelPDO $con
-     * @return int             Count of related User_List objects.
+     * @return int             Count of related UserList objects.
      * @throws PropelException
      */
-    public function countUser_Lists(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    public function countUserLists(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
     {
-        $partial = $this->collUser_ListsPartial && !$this->isNew();
-        if (null === $this->collUser_Lists || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collUser_Lists) {
+        $partial = $this->collUserListsPartial && !$this->isNew();
+        if (null === $this->collUserLists || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collUserLists) {
                 return 0;
             }
 
             if ($partial && !$criteria) {
-                return count($this->getUser_Lists());
+                return count($this->getUserLists());
             }
-            $query = User_ListQuery::create(null, $criteria);
+            $query = UserListQuery::create(null, $criteria);
             if ($distinct) {
                 $query->distinct();
             }
@@ -1081,28 +1081,28 @@ abstract class BaseUser extends BaseObject implements Persistent
                 ->count($con);
         }
 
-        return count($this->collUser_Lists);
+        return count($this->collUserLists);
     }
 
     /**
-     * Method called to associate a User_List object to this object
-     * through the User_List foreign key attribute.
+     * Method called to associate a UserList object to this object
+     * through the UserList foreign key attribute.
      *
-     * @param    User_List $l User_List
+     * @param    UserList $l UserList
      * @return User The current object (for fluent API support)
      */
-    public function addUser_List(User_List $l)
+    public function addUserList(UserList $l)
     {
-        if ($this->collUser_Lists === null) {
-            $this->initUser_Lists();
-            $this->collUser_ListsPartial = true;
+        if ($this->collUserLists === null) {
+            $this->initUserLists();
+            $this->collUserListsPartial = true;
         }
 
-        if (!in_array($l, $this->collUser_Lists->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
-            $this->doAddUser_List($l);
+        if (!in_array($l, $this->collUserLists->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
+            $this->doAddUserList($l);
 
-            if ($this->user_ListsScheduledForDeletion and $this->user_ListsScheduledForDeletion->contains($l)) {
-                $this->user_ListsScheduledForDeletion->remove($this->user_ListsScheduledForDeletion->search($l));
+            if ($this->userListsScheduledForDeletion and $this->userListsScheduledForDeletion->contains($l)) {
+                $this->userListsScheduledForDeletion->remove($this->userListsScheduledForDeletion->search($l));
             }
         }
 
@@ -1110,28 +1110,28 @@ abstract class BaseUser extends BaseObject implements Persistent
     }
 
     /**
-     * @param	User_List $user_List The user_List object to add.
+     * @param	UserList $userList The userList object to add.
      */
-    protected function doAddUser_List($user_List)
+    protected function doAddUserList($userList)
     {
-        $this->collUser_Lists[]= $user_List;
-        $user_List->setUser($this);
+        $this->collUserLists[]= $userList;
+        $userList->setUser($this);
     }
 
     /**
-     * @param	User_List $user_List The user_List object to remove.
+     * @param	UserList $userList The userList object to remove.
      * @return User The current object (for fluent API support)
      */
-    public function removeUser_List($user_List)
+    public function removeUserList($userList)
     {
-        if ($this->getUser_Lists()->contains($user_List)) {
-            $this->collUser_Lists->remove($this->collUser_Lists->search($user_List));
-            if (null === $this->user_ListsScheduledForDeletion) {
-                $this->user_ListsScheduledForDeletion = clone $this->collUser_Lists;
-                $this->user_ListsScheduledForDeletion->clear();
+        if ($this->getUserLists()->contains($userList)) {
+            $this->collUserLists->remove($this->collUserLists->search($userList));
+            if (null === $this->userListsScheduledForDeletion) {
+                $this->userListsScheduledForDeletion = clone $this->collUserLists;
+                $this->userListsScheduledForDeletion->clear();
             }
-            $this->user_ListsScheduledForDeletion[]= clone $user_List;
-            $user_List->setUser(null);
+            $this->userListsScheduledForDeletion[]= clone $userList;
+            $userList->setUser(null);
         }
 
         return $this;
@@ -1143,7 +1143,7 @@ abstract class BaseUser extends BaseObject implements Persistent
      * an identical criteria, it returns the collection.
      * Otherwise if this User is new, it will return
      * an empty collection; or if this User has previously
-     * been saved, it will retrieve related User_Lists from storage.
+     * been saved, it will retrieve related UserLists from storage.
      *
      * This method is protected by default in order to keep the public
      * api reasonable.  You can provide public methods for those you
@@ -1152,14 +1152,14 @@ abstract class BaseUser extends BaseObject implements Persistent
      * @param Criteria $criteria optional Criteria object to narrow the query
      * @param PropelPDO $con optional connection object
      * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return PropelObjectCollection|User_List[] List of User_List objects
+     * @return PropelObjectCollection|UserList[] List of UserList objects
      */
-    public function getUser_ListsJoinLists($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getUserListsJoinLists($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
-        $query = User_ListQuery::create(null, $criteria);
+        $query = UserListQuery::create(null, $criteria);
         $query->joinWith('Lists', $join_behavior);
 
-        return $this->getUser_Lists($query, $con);
+        return $this->getUserLists($query, $con);
     }
 
     /**
@@ -1192,8 +1192,8 @@ abstract class BaseUser extends BaseObject implements Persistent
     {
         if ($deep && !$this->alreadyInClearAllReferencesDeep) {
             $this->alreadyInClearAllReferencesDeep = true;
-            if ($this->collUser_Lists) {
-                foreach ($this->collUser_Lists as $o) {
+            if ($this->collUserLists) {
+                foreach ($this->collUserLists as $o) {
                     $o->clearAllReferences($deep);
                 }
             }
@@ -1201,10 +1201,10 @@ abstract class BaseUser extends BaseObject implements Persistent
             $this->alreadyInClearAllReferencesDeep = false;
         } // if ($deep)
 
-        if ($this->collUser_Lists instanceof PropelCollection) {
-            $this->collUser_Lists->clearIterator();
+        if ($this->collUserLists instanceof PropelCollection) {
+            $this->collUserLists->clearIterator();
         }
-        $this->collUser_Lists = null;
+        $this->collUserLists = null;
     }
 
     /**

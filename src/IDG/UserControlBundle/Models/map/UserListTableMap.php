@@ -7,7 +7,7 @@ use \TableMap;
 
 
 /**
- * This class defines the structure of the 'User' table.
+ * This class defines the structure of the 'User_List' table.
  *
  *
  *
@@ -18,13 +18,13 @@ use \TableMap;
  *
  * @package    propel.generator.src.IDG.UserControlBundle.Models.map
  */
-class UserTableMap extends TableMap
+class UserListTableMap extends TableMap
 {
 
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.IDG.UserControlBundle.Models.map.UserTableMap';
+    const CLASS_NAME = 'src.IDG.UserControlBundle.Models.map.UserListTableMap';
 
     /**
      * Initialize the table attributes, columns and validators
@@ -36,17 +36,16 @@ class UserTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('User');
-        $this->setPhpName('User');
-        $this->setClassname('IDG\\UserControlBundle\\Models\\User');
+        $this->setName('User_List');
+        $this->setPhpName('UserList');
+        $this->setClassname('IDG\\UserControlBundle\\Models\\UserList');
         $this->setPackage('src.IDG.UserControlBundle.Models');
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
-        $this->addColumn('First_Name', 'FirstName', 'VARCHAR', false, 100, null);
-        $this->getColumn('First_Name', false)->setPrimaryString(true);
-        $this->addColumn('Last_Name', 'LastName', 'VARCHAR', false, 100, null);
-        $this->getColumn('Last_Name', false)->setPrimaryString(true);
+        $this->addForeignKey('User_ID', 'UserId', 'INTEGER', 'User', 'ID', true, null, null);
+        $this->addForeignKey('List_ID', 'ListId', 'INTEGER', 'Lists', 'ID', true, null, null);
+        $this->addColumn('Date_Added', 'DateAdded', 'TIMESTAMP', true, null, null);
         // validators
     } // initialize()
 
@@ -55,7 +54,8 @@ class UserTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('UserList', 'IDG\\UserControlBundle\\Models\\UserList', RelationMap::ONE_TO_MANY, array('ID' => 'User_ID', ), null, null, 'UserLists');
+        $this->addRelation('User', 'IDG\\UserControlBundle\\Models\\User', RelationMap::MANY_TO_ONE, array('User_ID' => 'ID', ), null, null);
+        $this->addRelation('Lists', 'IDG\\UserControlBundle\\Models\\Lists', RelationMap::MANY_TO_ONE, array('List_ID' => 'ID', ), null, null);
     } // buildRelations()
 
-} // UserTableMap
+} // UserListTableMap

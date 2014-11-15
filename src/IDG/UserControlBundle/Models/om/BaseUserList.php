@@ -5,32 +5,34 @@ namespace IDG\UserControlBundle\Models\om;
 use \BaseObject;
 use \BasePeer;
 use \Criteria;
+use \DateTime;
 use \Exception;
 use \PDO;
 use \Persistent;
 use \Propel;
-use \PropelCollection;
+use \PropelDateTime;
 use \PropelException;
-use \PropelObjectCollection;
 use \PropelPDO;
 use IDG\UserControlBundle\Models\Lists;
-use IDG\UserControlBundle\Models\ListsPeer;
 use IDG\UserControlBundle\Models\ListsQuery;
+use IDG\UserControlBundle\Models\User;
 use IDG\UserControlBundle\Models\UserList;
+use IDG\UserControlBundle\Models\UserListPeer;
 use IDG\UserControlBundle\Models\UserListQuery;
+use IDG\UserControlBundle\Models\UserQuery;
 
-abstract class BaseLists extends BaseObject implements Persistent
+abstract class BaseUserList extends BaseObject implements Persistent
 {
     /**
      * Peer class name
      */
-    const PEER = 'IDG\\UserControlBundle\\Models\\ListsPeer';
+    const PEER = 'IDG\\UserControlBundle\\Models\\UserListPeer';
 
     /**
      * The Peer class.
      * Instance provides a convenient way of calling static methods on a class
      * that calling code may not be able to identify.
-     * @var        ListsPeer
+     * @var        UserListPeer
      */
     protected static $peer;
 
@@ -47,22 +49,32 @@ abstract class BaseLists extends BaseObject implements Persistent
     protected $id;
 
     /**
-     * The value for the name field.
-     * @var        string
-     */
-    protected $name;
-
-    /**
-     * The value for the active field.
+     * The value for the user_id field.
      * @var        int
      */
-    protected $active;
+    protected $user_id;
 
     /**
-     * @var        PropelObjectCollection|UserList[] Collection to store aggregation of UserList objects.
+     * The value for the list_id field.
+     * @var        int
      */
-    protected $collUserLists;
-    protected $collUserListsPartial;
+    protected $list_id;
+
+    /**
+     * The value for the date_added field.
+     * @var        string
+     */
+    protected $date_added;
+
+    /**
+     * @var        User
+     */
+    protected $aUser;
+
+    /**
+     * @var        Lists
+     */
+    protected $aLists;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -85,12 +97,6 @@ abstract class BaseLists extends BaseObject implements Persistent
     protected $alreadyInClearAllReferencesDeep = false;
 
     /**
-     * An array of objects scheduled for deletion.
-     * @var		PropelObjectCollection
-     */
-    protected $userListsScheduledForDeletion = null;
-
-    /**
      * Get the [id] column value.
      *
      * @return int
@@ -102,32 +108,72 @@ abstract class BaseLists extends BaseObject implements Persistent
     }
 
     /**
-     * Get the [name] column value.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-
-        return $this->name;
-    }
-
-    /**
-     * Get the [active] column value.
+     * Get the [user_id] column value.
      *
      * @return int
      */
-    public function getActive()
+    public function getUserId()
     {
 
-        return $this->active;
+        return $this->user_id;
+    }
+
+    /**
+     * Get the [list_id] column value.
+     *
+     * @return int
+     */
+    public function getListId()
+    {
+
+        return $this->list_id;
+    }
+
+    /**
+     * Get the [optionally formatted] temporal [date_added] column value.
+     *
+     *
+     * @param string $format The date/time format string (either date()-style or strftime()-style).
+     *				 If format is null, then the raw DateTime object will be returned.
+     * @return mixed Formatted date/time value as string or DateTime object (if format is null), null if column is null, and 0 if column value is 0000-00-00 00:00:00
+     * @throws PropelException - if unable to parse/validate the date/time value.
+     */
+    public function getDateAdded($format = null)
+    {
+        if ($this->date_added === null) {
+            return null;
+        }
+
+        if ($this->date_added === '0000-00-00 00:00:00') {
+            // while technically this is not a default value of null,
+            // this seems to be closest in meaning.
+            return null;
+        }
+
+        try {
+            $dt = new DateTime($this->date_added);
+        } catch (Exception $x) {
+            throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->date_added, true), $x);
+        }
+
+        if ($format === null) {
+            // Because propel.useDateTimeClass is true, we return a DateTime object.
+            return $dt;
+        }
+
+        if (strpos($format, '%') !== false) {
+            return strftime($format, $dt->format('U'));
+        }
+
+        return $dt->format($format);
+
     }
 
     /**
      * Set the value of [id] column.
      *
      * @param  int $v new value
-     * @return Lists The current object (for fluent API support)
+     * @return UserList The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -137,7 +183,7 @@ abstract class BaseLists extends BaseObject implements Persistent
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[] = ListsPeer::ID;
+            $this->modifiedColumns[] = UserListPeer::ID;
         }
 
 
@@ -145,46 +191,77 @@ abstract class BaseLists extends BaseObject implements Persistent
     } // setId()
 
     /**
-     * Set the value of [name] column.
-     *
-     * @param  string $v new value
-     * @return Lists The current object (for fluent API support)
-     */
-    public function setName($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->name !== $v) {
-            $this->name = $v;
-            $this->modifiedColumns[] = ListsPeer::NAME;
-        }
-
-
-        return $this;
-    } // setName()
-
-    /**
-     * Set the value of [active] column.
+     * Set the value of [user_id] column.
      *
      * @param  int $v new value
-     * @return Lists The current object (for fluent API support)
+     * @return UserList The current object (for fluent API support)
      */
-    public function setActive($v)
+    public function setUserId($v)
     {
         if ($v !== null && is_numeric($v)) {
             $v = (int) $v;
         }
 
-        if ($this->active !== $v) {
-            $this->active = $v;
-            $this->modifiedColumns[] = ListsPeer::ACTIVE;
+        if ($this->user_id !== $v) {
+            $this->user_id = $v;
+            $this->modifiedColumns[] = UserListPeer::USER_ID;
+        }
+
+        if ($this->aUser !== null && $this->aUser->getId() !== $v) {
+            $this->aUser = null;
         }
 
 
         return $this;
-    } // setActive()
+    } // setUserId()
+
+    /**
+     * Set the value of [list_id] column.
+     *
+     * @param  int $v new value
+     * @return UserList The current object (for fluent API support)
+     */
+    public function setListId($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (int) $v;
+        }
+
+        if ($this->list_id !== $v) {
+            $this->list_id = $v;
+            $this->modifiedColumns[] = UserListPeer::LIST_ID;
+        }
+
+        if ($this->aLists !== null && $this->aLists->getId() !== $v) {
+            $this->aLists = null;
+        }
+
+
+        return $this;
+    } // setListId()
+
+    /**
+     * Sets the value of [date_added] column to a normalized version of the date/time value specified.
+     *
+     * @param mixed $v string, integer (timestamp), or DateTime value.
+     *               Empty strings are treated as null.
+     * @return UserList The current object (for fluent API support)
+     */
+    public function setDateAdded($v)
+    {
+        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
+        if ($this->date_added !== null || $dt !== null) {
+            $currentDateAsString = ($this->date_added !== null && $tmpDt = new DateTime($this->date_added)) ? $tmpDt->format('Y-m-d H:i:s') : null;
+            $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
+            if ($currentDateAsString !== $newDateAsString) {
+                $this->date_added = $newDateAsString;
+                $this->modifiedColumns[] = UserListPeer::DATE_ADDED;
+            }
+        } // if either are not null
+
+
+        return $this;
+    } // setDateAdded()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -219,8 +296,9 @@ abstract class BaseLists extends BaseObject implements Persistent
         try {
 
             $this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->name = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
-            $this->active = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+            $this->user_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
+            $this->list_id = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+            $this->date_added = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -230,10 +308,10 @@ abstract class BaseLists extends BaseObject implements Persistent
             }
             $this->postHydrate($row, $startcol, $rehydrate);
 
-            return $startcol + 3; // 3 = ListsPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 4; // 4 = UserListPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException("Error populating Lists object", $e);
+            throw new PropelException("Error populating UserList object", $e);
         }
     }
 
@@ -253,6 +331,12 @@ abstract class BaseLists extends BaseObject implements Persistent
     public function ensureConsistency()
     {
 
+        if ($this->aUser !== null && $this->user_id !== $this->aUser->getId()) {
+            $this->aUser = null;
+        }
+        if ($this->aLists !== null && $this->list_id !== $this->aLists->getId()) {
+            $this->aLists = null;
+        }
     } // ensureConsistency
 
     /**
@@ -276,13 +360,13 @@ abstract class BaseLists extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(ListsPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(UserListPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $stmt = ListsPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+        $stmt = UserListPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
         $row = $stmt->fetch(PDO::FETCH_NUM);
         $stmt->closeCursor();
         if (!$row) {
@@ -292,8 +376,8 @@ abstract class BaseLists extends BaseObject implements Persistent
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->collUserLists = null;
-
+            $this->aUser = null;
+            $this->aLists = null;
         } // if (deep)
     }
 
@@ -314,12 +398,12 @@ abstract class BaseLists extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(ListsPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(UserListPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
         try {
-            $deleteQuery = ListsQuery::create()
+            $deleteQuery = UserListQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             if ($ret) {
@@ -357,7 +441,7 @@ abstract class BaseLists extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(ListsPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(UserListPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
@@ -377,7 +461,7 @@ abstract class BaseLists extends BaseObject implements Persistent
                     $this->postUpdate($con);
                 }
                 $this->postSave($con);
-                ListsPeer::addInstanceToPool($this);
+                UserListPeer::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -407,6 +491,25 @@ abstract class BaseLists extends BaseObject implements Persistent
         if (!$this->alreadyInSave) {
             $this->alreadyInSave = true;
 
+            // We call the save method on the following object(s) if they
+            // were passed to this object by their corresponding set
+            // method.  This object relates to these object(s) by a
+            // foreign key reference.
+
+            if ($this->aUser !== null) {
+                if ($this->aUser->isModified() || $this->aUser->isNew()) {
+                    $affectedRows += $this->aUser->save($con);
+                }
+                $this->setUser($this->aUser);
+            }
+
+            if ($this->aLists !== null) {
+                if ($this->aLists->isModified() || $this->aLists->isNew()) {
+                    $affectedRows += $this->aLists->save($con);
+                }
+                $this->setLists($this->aLists);
+            }
+
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
                 if ($this->isNew()) {
@@ -416,23 +519,6 @@ abstract class BaseLists extends BaseObject implements Persistent
                 }
                 $affectedRows += 1;
                 $this->resetModified();
-            }
-
-            if ($this->userListsScheduledForDeletion !== null) {
-                if (!$this->userListsScheduledForDeletion->isEmpty()) {
-                    UserListQuery::create()
-                        ->filterByPrimaryKeys($this->userListsScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
-                    $this->userListsScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collUserLists !== null) {
-                foreach ($this->collUserLists as $referrerFK) {
-                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
             }
 
             $this->alreadyInSave = false;
@@ -455,24 +541,27 @@ abstract class BaseLists extends BaseObject implements Persistent
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[] = ListsPeer::ID;
+        $this->modifiedColumns[] = UserListPeer::ID;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . ListsPeer::ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . UserListPeer::ID . ')');
         }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(ListsPeer::ID)) {
+        if ($this->isColumnModified(UserListPeer::ID)) {
             $modifiedColumns[':p' . $index++]  = '`ID`';
         }
-        if ($this->isColumnModified(ListsPeer::NAME)) {
-            $modifiedColumns[':p' . $index++]  = '`Name`';
+        if ($this->isColumnModified(UserListPeer::USER_ID)) {
+            $modifiedColumns[':p' . $index++]  = '`User_ID`';
         }
-        if ($this->isColumnModified(ListsPeer::ACTIVE)) {
-            $modifiedColumns[':p' . $index++]  = '`Active`';
+        if ($this->isColumnModified(UserListPeer::LIST_ID)) {
+            $modifiedColumns[':p' . $index++]  = '`List_ID`';
+        }
+        if ($this->isColumnModified(UserListPeer::DATE_ADDED)) {
+            $modifiedColumns[':p' . $index++]  = '`Date_Added`';
         }
 
         $sql = sprintf(
-            'INSERT INTO `Lists` (%s) VALUES (%s)',
+            'INSERT INTO `User_List` (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -484,11 +573,14 @@ abstract class BaseLists extends BaseObject implements Persistent
                     case '`ID`':
                         $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
                         break;
-                    case '`Name`':
-                        $stmt->bindValue($identifier, $this->name, PDO::PARAM_STR);
+                    case '`User_ID`':
+                        $stmt->bindValue($identifier, $this->user_id, PDO::PARAM_INT);
                         break;
-                    case '`Active`':
-                        $stmt->bindValue($identifier, $this->active, PDO::PARAM_INT);
+                    case '`List_ID`':
+                        $stmt->bindValue($identifier, $this->list_id, PDO::PARAM_INT);
+                        break;
+                    case '`Date_Added`':
+                        $stmt->bindValue($identifier, $this->date_added, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -584,18 +676,28 @@ abstract class BaseLists extends BaseObject implements Persistent
             $failureMap = array();
 
 
-            if (($retval = ListsPeer::doValidate($this, $columns)) !== true) {
-                $failureMap = array_merge($failureMap, $retval);
+            // We call the validate method on the following object(s) if they
+            // were passed to this object by their corresponding set
+            // method.  This object relates to these object(s) by a
+            // foreign key reference.
+
+            if ($this->aUser !== null) {
+                if (!$this->aUser->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aUser->getValidationFailures());
+                }
+            }
+
+            if ($this->aLists !== null) {
+                if (!$this->aLists->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aLists->getValidationFailures());
+                }
             }
 
 
-                if ($this->collUserLists !== null) {
-                    foreach ($this->collUserLists as $referrerFK) {
-                        if (!$referrerFK->validate($columns)) {
-                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-                        }
-                    }
-                }
+            if (($retval = UserListPeer::doValidate($this, $columns)) !== true) {
+                $failureMap = array_merge($failureMap, $retval);
+            }
+
 
 
             $this->alreadyInValidation = false;
@@ -616,7 +718,7 @@ abstract class BaseLists extends BaseObject implements Persistent
      */
     public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = ListsPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = UserListPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -636,10 +738,13 @@ abstract class BaseLists extends BaseObject implements Persistent
                 return $this->getId();
                 break;
             case 1:
-                return $this->getName();
+                return $this->getUserId();
                 break;
             case 2:
-                return $this->getActive();
+                return $this->getListId();
+                break;
+            case 3:
+                return $this->getDateAdded();
                 break;
             default:
                 return null;
@@ -664,15 +769,16 @@ abstract class BaseLists extends BaseObject implements Persistent
      */
     public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
-        if (isset($alreadyDumpedObjects['Lists'][$this->getPrimaryKey()])) {
+        if (isset($alreadyDumpedObjects['UserList'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Lists'][$this->getPrimaryKey()] = true;
-        $keys = ListsPeer::getFieldNames($keyType);
+        $alreadyDumpedObjects['UserList'][$this->getPrimaryKey()] = true;
+        $keys = UserListPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
-            $keys[1] => $this->getName(),
-            $keys[2] => $this->getActive(),
+            $keys[1] => $this->getUserId(),
+            $keys[2] => $this->getListId(),
+            $keys[3] => $this->getDateAdded(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -680,8 +786,11 @@ abstract class BaseLists extends BaseObject implements Persistent
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->collUserLists) {
-                $result['UserLists'] = $this->collUserLists->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            if (null !== $this->aUser) {
+                $result['User'] = $this->aUser->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aLists) {
+                $result['Lists'] = $this->aLists->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
         }
 
@@ -701,7 +810,7 @@ abstract class BaseLists extends BaseObject implements Persistent
      */
     public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = ListsPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = UserListPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 
         $this->setByPosition($pos, $value);
     }
@@ -721,10 +830,13 @@ abstract class BaseLists extends BaseObject implements Persistent
                 $this->setId($value);
                 break;
             case 1:
-                $this->setName($value);
+                $this->setUserId($value);
                 break;
             case 2:
-                $this->setActive($value);
+                $this->setListId($value);
+                break;
+            case 3:
+                $this->setDateAdded($value);
                 break;
         } // switch()
     }
@@ -748,11 +860,12 @@ abstract class BaseLists extends BaseObject implements Persistent
      */
     public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
     {
-        $keys = ListsPeer::getFieldNames($keyType);
+        $keys = UserListPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setName($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setActive($arr[$keys[2]]);
+        if (array_key_exists($keys[1], $arr)) $this->setUserId($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setListId($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setDateAdded($arr[$keys[3]]);
     }
 
     /**
@@ -762,11 +875,12 @@ abstract class BaseLists extends BaseObject implements Persistent
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(ListsPeer::DATABASE_NAME);
+        $criteria = new Criteria(UserListPeer::DATABASE_NAME);
 
-        if ($this->isColumnModified(ListsPeer::ID)) $criteria->add(ListsPeer::ID, $this->id);
-        if ($this->isColumnModified(ListsPeer::NAME)) $criteria->add(ListsPeer::NAME, $this->name);
-        if ($this->isColumnModified(ListsPeer::ACTIVE)) $criteria->add(ListsPeer::ACTIVE, $this->active);
+        if ($this->isColumnModified(UserListPeer::ID)) $criteria->add(UserListPeer::ID, $this->id);
+        if ($this->isColumnModified(UserListPeer::USER_ID)) $criteria->add(UserListPeer::USER_ID, $this->user_id);
+        if ($this->isColumnModified(UserListPeer::LIST_ID)) $criteria->add(UserListPeer::LIST_ID, $this->list_id);
+        if ($this->isColumnModified(UserListPeer::DATE_ADDED)) $criteria->add(UserListPeer::DATE_ADDED, $this->date_added);
 
         return $criteria;
     }
@@ -781,8 +895,8 @@ abstract class BaseLists extends BaseObject implements Persistent
      */
     public function buildPkeyCriteria()
     {
-        $criteria = new Criteria(ListsPeer::DATABASE_NAME);
-        $criteria->add(ListsPeer::ID, $this->id);
+        $criteria = new Criteria(UserListPeer::DATABASE_NAME);
+        $criteria->add(UserListPeer::ID, $this->id);
 
         return $criteria;
     }
@@ -823,15 +937,16 @@ abstract class BaseLists extends BaseObject implements Persistent
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param object $copyObj An object of Lists (or compatible) type.
+     * @param object $copyObj An object of UserList (or compatible) type.
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setName($this->getName());
-        $copyObj->setActive($this->getActive());
+        $copyObj->setUserId($this->getUserId());
+        $copyObj->setListId($this->getListId());
+        $copyObj->setDateAdded($this->getDateAdded());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -839,12 +954,6 @@ abstract class BaseLists extends BaseObject implements Persistent
             $copyObj->setNew(false);
             // store object hash to prevent cycle
             $this->startCopy = true;
-
-            foreach ($this->getUserLists() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addUserList($relObj->copy($deepCopy));
-                }
-            }
 
             //unflag object copy
             $this->startCopy = false;
@@ -865,7 +974,7 @@ abstract class BaseLists extends BaseObject implements Persistent
      * objects.
      *
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return Lists Clone of current object.
+     * @return UserList Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -885,281 +994,119 @@ abstract class BaseLists extends BaseObject implements Persistent
      * same instance for all member of this class. The method could therefore
      * be static, but this would prevent one from overriding the behavior.
      *
-     * @return ListsPeer
+     * @return UserListPeer
      */
     public function getPeer()
     {
         if (self::$peer === null) {
-            self::$peer = new ListsPeer();
+            self::$peer = new UserListPeer();
         }
 
         return self::$peer;
     }
 
-
     /**
-     * Initializes a collection based on the name of a relation.
-     * Avoids crafting an 'init[$relationName]s' method name
-     * that wouldn't work when StandardEnglishPluralizer is used.
+     * Declares an association between this object and a User object.
      *
-     * @param string $relationName The name of the relation to initialize
-     * @return void
-     */
-    public function initRelation($relationName)
-    {
-        if ('UserList' == $relationName) {
-            $this->initUserLists();
-        }
-    }
-
-    /**
-     * Clears out the collUserLists collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return Lists The current object (for fluent API support)
-     * @see        addUserLists()
-     */
-    public function clearUserLists()
-    {
-        $this->collUserLists = null; // important to set this to null since that means it is uninitialized
-        $this->collUserListsPartial = null;
-
-        return $this;
-    }
-
-    /**
-     * reset is the collUserLists collection loaded partially
-     *
-     * @return void
-     */
-    public function resetPartialUserLists($v = true)
-    {
-        $this->collUserListsPartial = $v;
-    }
-
-    /**
-     * Initializes the collUserLists collection.
-     *
-     * By default this just sets the collUserLists collection to an empty array (like clearcollUserLists());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initUserLists($overrideExisting = true)
-    {
-        if (null !== $this->collUserLists && !$overrideExisting) {
-            return;
-        }
-        $this->collUserLists = new PropelObjectCollection();
-        $this->collUserLists->setModel('UserList');
-    }
-
-    /**
-     * Gets an array of UserList objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this Lists is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @return PropelObjectCollection|UserList[] List of UserList objects
+     * @param                  User $v
+     * @return UserList The current object (for fluent API support)
      * @throws PropelException
      */
-    public function getUserLists($criteria = null, PropelPDO $con = null)
+    public function setUser(User $v = null)
     {
-        $partial = $this->collUserListsPartial && !$this->isNew();
-        if (null === $this->collUserLists || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collUserLists) {
-                // return empty collection
-                $this->initUserLists();
-            } else {
-                $collUserLists = UserListQuery::create(null, $criteria)
-                    ->filterByLists($this)
-                    ->find($con);
-                if (null !== $criteria) {
-                    if (false !== $this->collUserListsPartial && count($collUserLists)) {
-                      $this->initUserLists(false);
-
-                      foreach ($collUserLists as $obj) {
-                        if (false == $this->collUserLists->contains($obj)) {
-                          $this->collUserLists->append($obj);
-                        }
-                      }
-
-                      $this->collUserListsPartial = true;
-                    }
-
-                    $collUserLists->getInternalIterator()->rewind();
-
-                    return $collUserLists;
-                }
-
-                if ($partial && $this->collUserLists) {
-                    foreach ($this->collUserLists as $obj) {
-                        if ($obj->isNew()) {
-                            $collUserLists[] = $obj;
-                        }
-                    }
-                }
-
-                $this->collUserLists = $collUserLists;
-                $this->collUserListsPartial = false;
-            }
+        if ($v === null) {
+            $this->setUserId(NULL);
+        } else {
+            $this->setUserId($v->getId());
         }
 
-        return $this->collUserLists;
-    }
+        $this->aUser = $v;
 
-    /**
-     * Sets a collection of UserList objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param PropelCollection $userLists A Propel collection.
-     * @param PropelPDO $con Optional connection object
-     * @return Lists The current object (for fluent API support)
-     */
-    public function setUserLists(PropelCollection $userLists, PropelPDO $con = null)
-    {
-        $userListsToDelete = $this->getUserLists(new Criteria(), $con)->diff($userLists);
-
-
-        $this->userListsScheduledForDeletion = $userListsToDelete;
-
-        foreach ($userListsToDelete as $userListRemoved) {
-            $userListRemoved->setLists(null);
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the User object, it will not be re-added.
+        if ($v !== null) {
+            $v->addUserList($this);
         }
 
-        $this->collUserLists = null;
-        foreach ($userLists as $userList) {
-            $this->addUserList($userList);
-        }
-
-        $this->collUserLists = $userLists;
-        $this->collUserListsPartial = false;
 
         return $this;
     }
 
+
     /**
-     * Returns the number of related UserList objects.
+     * Get the associated User object
      *
-     * @param Criteria $criteria
-     * @param boolean $distinct
-     * @param PropelPDO $con
-     * @return int             Count of related UserList objects.
+     * @param PropelPDO $con Optional Connection object.
+     * @param $doQuery Executes a query to get the object if required
+     * @return User The associated User object.
      * @throws PropelException
      */
-    public function countUserLists(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    public function getUser(PropelPDO $con = null, $doQuery = true)
     {
-        $partial = $this->collUserListsPartial && !$this->isNew();
-        if (null === $this->collUserLists || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collUserLists) {
-                return 0;
-            }
-
-            if ($partial && !$criteria) {
-                return count($this->getUserLists());
-            }
-            $query = UserListQuery::create(null, $criteria);
-            if ($distinct) {
-                $query->distinct();
-            }
-
-            return $query
-                ->filterByLists($this)
-                ->count($con);
+        if ($this->aUser === null && ($this->user_id !== null) && $doQuery) {
+            $this->aUser = UserQuery::create()->findPk($this->user_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aUser->addUserLists($this);
+             */
         }
 
-        return count($this->collUserLists);
+        return $this->aUser;
     }
 
     /**
-     * Method called to associate a UserList object to this object
-     * through the UserList foreign key attribute.
+     * Declares an association between this object and a Lists object.
      *
-     * @param    UserList $l UserList
-     * @return Lists The current object (for fluent API support)
+     * @param                  Lists $v
+     * @return UserList The current object (for fluent API support)
+     * @throws PropelException
      */
-    public function addUserList(UserList $l)
+    public function setLists(Lists $v = null)
     {
-        if ($this->collUserLists === null) {
-            $this->initUserLists();
-            $this->collUserListsPartial = true;
+        if ($v === null) {
+            $this->setListId(NULL);
+        } else {
+            $this->setListId($v->getId());
         }
 
-        if (!in_array($l, $this->collUserLists->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
-            $this->doAddUserList($l);
+        $this->aLists = $v;
 
-            if ($this->userListsScheduledForDeletion and $this->userListsScheduledForDeletion->contains($l)) {
-                $this->userListsScheduledForDeletion->remove($this->userListsScheduledForDeletion->search($l));
-            }
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the Lists object, it will not be re-added.
+        if ($v !== null) {
+            $v->addUserList($this);
         }
 
-        return $this;
-    }
-
-    /**
-     * @param	UserList $userList The userList object to add.
-     */
-    protected function doAddUserList($userList)
-    {
-        $this->collUserLists[]= $userList;
-        $userList->setLists($this);
-    }
-
-    /**
-     * @param	UserList $userList The userList object to remove.
-     * @return Lists The current object (for fluent API support)
-     */
-    public function removeUserList($userList)
-    {
-        if ($this->getUserLists()->contains($userList)) {
-            $this->collUserLists->remove($this->collUserLists->search($userList));
-            if (null === $this->userListsScheduledForDeletion) {
-                $this->userListsScheduledForDeletion = clone $this->collUserLists;
-                $this->userListsScheduledForDeletion->clear();
-            }
-            $this->userListsScheduledForDeletion[]= clone $userList;
-            $userList->setLists(null);
-        }
 
         return $this;
     }
 
 
     /**
-     * If this collection has already been initialized with
-     * an identical criteria, it returns the collection.
-     * Otherwise if this Lists is new, it will return
-     * an empty collection; or if this Lists has previously
-     * been saved, it will retrieve related UserLists from storage.
+     * Get the associated Lists object
      *
-     * This method is protected by default in order to keep the public
-     * api reasonable.  You can provide public methods for those you
-     * actually need in Lists.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return PropelObjectCollection|UserList[] List of UserList objects
+     * @param PropelPDO $con Optional Connection object.
+     * @param $doQuery Executes a query to get the object if required
+     * @return Lists The associated Lists object.
+     * @throws PropelException
      */
-    public function getUserListsJoinUser($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getLists(PropelPDO $con = null, $doQuery = true)
     {
-        $query = UserListQuery::create(null, $criteria);
-        $query->joinWith('User', $join_behavior);
+        if ($this->aLists === null && ($this->list_id !== null) && $doQuery) {
+            $this->aLists = ListsQuery::create()->findPk($this->list_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aLists->addUserLists($this);
+             */
+        }
 
-        return $this->getUserLists($query, $con);
+        return $this->aLists;
     }
 
     /**
@@ -1168,8 +1115,9 @@ abstract class BaseLists extends BaseObject implements Persistent
     public function clear()
     {
         $this->id = null;
-        $this->name = null;
-        $this->active = null;
+        $this->user_id = null;
+        $this->list_id = null;
+        $this->date_added = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->alreadyInClearAllReferencesDeep = false;
@@ -1192,29 +1140,28 @@ abstract class BaseLists extends BaseObject implements Persistent
     {
         if ($deep && !$this->alreadyInClearAllReferencesDeep) {
             $this->alreadyInClearAllReferencesDeep = true;
-            if ($this->collUserLists) {
-                foreach ($this->collUserLists as $o) {
-                    $o->clearAllReferences($deep);
-                }
+            if ($this->aUser instanceof Persistent) {
+              $this->aUser->clearAllReferences($deep);
+            }
+            if ($this->aLists instanceof Persistent) {
+              $this->aLists->clearAllReferences($deep);
             }
 
             $this->alreadyInClearAllReferencesDeep = false;
         } // if ($deep)
 
-        if ($this->collUserLists instanceof PropelCollection) {
-            $this->collUserLists->clearIterator();
-        }
-        $this->collUserLists = null;
+        $this->aUser = null;
+        $this->aLists = null;
     }
 
     /**
      * return the string representation of this object
      *
-     * @return string The value of the 'Name' column
+     * @return string
      */
     public function __toString()
     {
-        return (string) $this->getName();
+        return (string) $this->exportTo(UserListPeer::DEFAULT_STRING_FORMAT);
     }
 
     /**

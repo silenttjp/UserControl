@@ -54,7 +54,7 @@ class ListsTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('User_List', 'IDG\\UserControlBundle\\Models\\User_List', RelationMap::ONE_TO_MANY, array('ID' => 'List_ID', ), null, null, 'User_Lists');
+        $this->addRelation('UserList', 'IDG\\UserControlBundle\\Models\\UserList', RelationMap::ONE_TO_MANY, array('ID' => 'List_ID', ), null, null, 'UserLists');
     } // buildRelations()
 
 } // ListsTableMap

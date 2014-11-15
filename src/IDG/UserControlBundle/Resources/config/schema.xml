@@ -76,10 +76,10 @@
             name="Date_Added"
             type="timestamp"
             required="true" />
-   		<foreign-key foreignTable="User" phpName="User">
+   		<foreign-key foreignTable="User">
       		<reference local="User_ID" foreign="ID"/>
     	</foreign-key>
-    	<foreign-key foreignTable="Lists" phpName="Lists">
+    	<foreign-key foreignTable="Lists">
       		<reference local="List_ID" foreign="ID"/>
     	</foreign-key>
     
