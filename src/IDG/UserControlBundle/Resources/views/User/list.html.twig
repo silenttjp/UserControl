@@ -1,4 +1,8 @@
 
-	<div class="container">
-		<h2>Manage users and lists.</h2>
-	</div>
+    {% foreach user in users %}
+	<div class="panel panel-default">
+       <div class="panel-body">
+            {{ user.FirstName }}
+       </div>
+    </div>
+    {% endforeach %}
