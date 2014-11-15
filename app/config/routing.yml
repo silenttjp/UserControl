@@ -4,3 +4,9 @@ idg_user_control:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+    
+user_bundle_routing:
+    pattern:  /user/ajax/getUsers
+    defaults: { _controller: IDGUserControlBundle:Default:getUsers }
+    requirements:
+        _method:  POST
