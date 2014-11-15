@@ -4,6 +4,8 @@ namespace IDG\UserControlBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use IDG\UserControlBundle\Models\UserQuery;
+use IDG\UserControlBundle\Models\User;
+use IDG\UserControlBundle\Form\UserType;
 use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
@@ -21,5 +23,14 @@ class DefaultController extends Controller
          
 
          return $this->render('IDGUserControlBundle:User:list.html.twig',array("users" => $Users));
+    }
+    
+    public function newUserFormAction(){
+        $user = new User();
+        $user_form = $this->createForm(new UserType(), $user);
+        
+        return $this->render('IDGUserControlBundle:User:new.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 }

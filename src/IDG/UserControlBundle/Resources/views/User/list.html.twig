@@ -8,7 +8,7 @@
   <!-- List group -->
   <ul class="list-group">
       {% for user in users %}
-    <li class="list-group-item">{{ user.FirstName }}</li>
+    <li class="list-group-item">{{ user.FirstName }} {{ user.LastName }}</li>
     {% endfor %}
   
   </ul>

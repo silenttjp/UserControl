@@ -10,3 +10,9 @@ user_bundle_routing:
     defaults: { _controller: IDGUserControlBundle:Default:getUsers }
     requirements:
         _method:  POST
+
+new_user_routing:
+    pattern:  /user/new/
+    defaults: { _controller: IDGUserControlBundle:Default:newUserForm }
+    requirements:
+        _method:  POST
