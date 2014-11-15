@@ -23,6 +23,14 @@
             },function(data){
                    $('#user_list').html(data);             
             });
+        });
+        
+        $('#add_user').click(function(){
+        	$.post('{{path('new_user_routing')}}',{
+                getUsers:1
+            },function(data){
+                   $('#user_list').html(data);             
+            });
         })  
     }) 
     </script> 
