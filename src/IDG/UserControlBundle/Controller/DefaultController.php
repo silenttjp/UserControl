@@ -19,15 +19,7 @@ class DefaultController extends Controller
        
         $Users = UserQuery::create()->find();
          
-        if(count($Users)){
-            $message = "No Users";
-            $return=array("responseCode"=>400,  "message"=>$message);
-        }
-        else{
-            $return=array("responseCode"=>400, "users"=>$Users->ToArray());
-        }
-    
-        $return=json_encode($return);
-        return new Response($return,200,array('Content-Type'=>'application/json'));
+
+         return $this->render('IDGUserControlBundle:User:list.html.twig',array("users" => $Users));
     }
 }
