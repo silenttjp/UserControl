@@ -30,7 +30,7 @@ class DefaultController extends Controller
         $user_form = $this->createForm(new UserType(), $user);
         
         return $this->render('IDGUserControlBundle:User:new.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $user_form->createView(),
         ));
     }
 }
