@@ -17,6 +17,10 @@
 		{% endjavascripts %}
 		    <script>
     $( document ).ready(function() {
+
+        
+
+        
         $('#view_users').click(function(){
         	$.post('{{path('user_bundle_routing')}}',{
                 getUsers:1
