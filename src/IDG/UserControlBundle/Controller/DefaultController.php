@@ -5,7 +5,7 @@ namespace IDG\UserControlBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use IDG\UserControlBundle\Models\UserQuery;
 use IDG\UserControlBundle\Models\User;
-use IDG\UserControlBundle\Form\UserType;
+use IDG\UserControlBundle\Form\Type\UserType;
 use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
