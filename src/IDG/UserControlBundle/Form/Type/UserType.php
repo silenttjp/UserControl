@@ -19,5 +19,6 @@ class UserType extends BaseAbstractType
     {
         $builder->add('firstName');
         $builder->add('lastName');
+        $builder->add('save', 'submit', array('label' => 'Create Task'));
     }
 }
