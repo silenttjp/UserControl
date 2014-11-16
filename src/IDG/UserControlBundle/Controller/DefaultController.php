@@ -45,7 +45,7 @@ class DefaultController extends Controller
         //$validator = $this->get('validator');
        // $errors = $validator->validate($author);
     
-        if ($user_form->isValid()) {
+        if ($user->isValid()) {
             echo '1';
             // the validation passed, do something with the $author object
             return ('valid');
