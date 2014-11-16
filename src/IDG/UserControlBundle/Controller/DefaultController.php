@@ -59,7 +59,7 @@ class DefaultController extends Controller
         
        $this->forward('Default','getUsers');
        
-       $response = $this->forward('IDGUserControlBundle:Default:getUsers', array());
+       return $this->redirect($this->generateUrl('user_bundle_routing'));
     }
     
     
