@@ -24,5 +24,5 @@ get_user_count_routing:
     defaults: { _controller: IDGUserControlBundle:Default:getUserCount }
     
 delete_user_routing:
-    pattern:  /user/delete/{id}
+    pattern:  /user/delete/
     defaults: { _controller: IDGUserControlBundle:Default:deleteUser }
