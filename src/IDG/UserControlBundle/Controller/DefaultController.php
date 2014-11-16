@@ -56,7 +56,10 @@ class DefaultController extends Controller
         $user = UserQuery::create()->findPk($request->request->get('id'));
         $user->delete();
         
-       return $this->redirect($this->generateUrl('user_bundle_routing'),array());
+         $Users = UserQuery::create()->find();
+         
+
+         return $this->render('IDGUserControlBundle:User:list.html.twig',array("users" => $Users));
     }
     
     
