@@ -46,14 +46,15 @@
     	    	user_firstname:FN,
     	    	user_lastname:LN
             },function(data){
-         	   $('#user_list').html(data);          
+         	   $('#user_list').html(data); 
+          	  $.post('{{path('get_user_count_routing')}}',{
+        	    	getUser:1
+                },function(data){
+             	   $('#user_count').html(data);          
+                });         
             });
 
-    	    $.post('{{path('get_user_count_routing')}}',{
-    	    	getUser:1
-            },function(data){
-         	   $('#user_count').html(data);          
-            });
+    	    
             return false;
        });  
     }) 
