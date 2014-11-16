@@ -34,7 +34,7 @@ class DefaultController extends Controller
         ));
     }
     
-    public function saveNewUser(Request $request){
+    public function saveNewUserAction(Request $request){
         $user = new User();
         $user_form = $this->createForm(new UserType(), $user);
     
