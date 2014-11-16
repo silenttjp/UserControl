@@ -39,7 +39,7 @@ class DefaultController extends Controller
     public function saveNewUserAction(Request $request){
         $user = new User();
         $user->setFirstName($request->request->get('user_firstname'));
-        $user->setLastName($request->request->get('user_firstname'));
+        $user->setLastName($request->request->get('user_lastname'));
         $user->save();
         
         
