@@ -49,6 +49,7 @@ class DefaultController extends Controller
         $request = $this->getRequest();
         
         if ('POST' === $request->getMethod()) {
+            print_r($request->request->all());
             $user_form->handleRequest($request);
         
             if ($user_form->isValid()) {
