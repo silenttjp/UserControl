@@ -19,7 +19,7 @@ class UserType extends BaseAbstractType
     {
         $builder->add('firstName','text', array("required"=>true));
         $builder->add('lastName','text', array("required"=>true));
-        $builder->add('save', 'button', array('label' => 'Add User'));
+        $builder->add('save', 'submit', array('label' => 'Add User'));
         
         
     }
