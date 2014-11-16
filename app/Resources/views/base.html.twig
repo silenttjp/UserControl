@@ -59,7 +59,7 @@
        $('#user_list').on("click",".user_id", function(){
    	            var id = $(this).attr("ref");
 
-   	            $.get('{{ path('delete_user_routing ')}}',{
+      	         $.post('{{path('delete_user_routing')}}',{
       	             id:id
    	   	        }),function(data){
       	             $('#user_list').html(data); 
