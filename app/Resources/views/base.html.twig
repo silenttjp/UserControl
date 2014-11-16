@@ -76,18 +76,15 @@
        $('#user_list').on("click",".user_edit", function(){
            var id = $(this).attr("ref");
 
-         $.post('{{path('delete_user_routing')}}',{
-             id:id
-  	        },function(data){
-  	        
-             $('#user_list').html(data); 
-      	 $.post('{{path('get_user_count_routing')}}',{
-    	    	getUser:1
+           $.post('{{path('new_user_routing')}}',{
+               id:id
            },function(data){
-         	    $('#user_count').html(data);          
-           });   
-  	   	   	 });
-         });
+                  $('#user_list').html(data);             
+           });
+        
+
+
+       
     }) 
     </script>
 </body>
