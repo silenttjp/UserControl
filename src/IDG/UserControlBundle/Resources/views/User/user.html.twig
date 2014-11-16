@@ -1,19 +1,22 @@
 {% extends '::base.html.twig' %}
 {% block body %}
     <div class="container">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            User panel:  
-            <button class="btn btn-xs btn-primary" id="view_users" type="button">
-                 Number Of Users: <span class="badge">{{ user_count }}</span>
-            </button>
-            <button class="btn btn-xs btn-success align-right" id="add_user" type="button">
-                Add User
-            </button>
-            <br><br>
-            <div id="user_list"></div>
-          </div>
-        </div>
+
+            <div class="col-sm-6">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                User panel:  
+                <button class="btn btn-xs btn-primary" id="view_users" type="button">
+                     Number Of Users: <span class="badge">{{ user_count }}</span>
+                </button>
+                <button class="btn btn-xs btn-success align-right" id="add_user" type="button">
+                    Add User
+                </button>
+                <br><br>
+                <div id="user_list"></div>
+              </div>
+            </div>
+       
     </div>
         
 {% endblock %}
