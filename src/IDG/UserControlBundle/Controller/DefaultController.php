@@ -27,7 +27,7 @@ class DefaultController extends Controller
          return $this->render('IDGUserControlBundle:User:list.html.twig',array("users" => $Users));
     }
     
-    public function newUserFormAction(){
+    public function newUserFormAction(Request $request){
         $user = new User();
         $user_form = $this->createForm(new UserType(), $user);
         
@@ -58,6 +58,10 @@ class DefaultController extends Controller
         
         
        return $this->redirect($this->generateUrl('user_bundle_routing'));
+    }
+    
+    public function editUserAction(Request $request){
+        
     }
     
     

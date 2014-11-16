@@ -10,7 +10,7 @@
       {% for user in users %}
     <li class="list-group-item">{{ user.FirstName }} {{ user.LastName }}
         <button ref="{{ user.id }}" class="btn btn-danger btn-xs glyphicon glyphicon-remove pull-right user_id"></button>
-        <button ref="{{ user.id }}" class="btn btn-success btn-xs glyphicon glyphicon-pencil pull-right user_id"></button>
+        <button ref="{{ user.id }}" class="btn btn-success btn-xs glyphicon glyphicon-pencil pull-right user_edit"></button>
     </li>
     {% endfor %}
   
