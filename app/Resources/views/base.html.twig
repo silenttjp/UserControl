@@ -41,8 +41,8 @@
     	    var FN = $('#user_firstname').val();
     	    var LN = $('#user_lastname').val();
     	    $.post('{{path('new_user_save_routing')}}',{
-    	    	user_firstname:fn,
-    	    	user_lastname:fn
+    	    	user_firstname:FN,
+    	    	user_lastname:LN
             },function(data){
                   alert(data);            
             });
