@@ -57,7 +57,7 @@ class DefaultController extends Controller
         $user->delete();
         
         
-        return $this->getUsersAction();
+        return $this->redirectToRoute('getUsers');
     }
     
     
