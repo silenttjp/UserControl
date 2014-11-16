@@ -7,15 +7,5 @@
 		           $('#user_firstName').addClass("form-control");
 		           $('#user_lastName').addClass("form-control");
 
-		           $('#user_list').on("click","#user_save", function(){
-			       	    var FN = $('#user_firstname').val();
-			       	    var LN = $('#user_lastname').val();
-			       	    alert(FN);
-			       	    $.post('{{path('new_user_save_routing')}}',{
-			       	    	user_firstname:FN,
-			       	    	user_lastname:LN
-			               },function(data){
-			                     alert(data);            
-			               });
-			          }); 
+		           
           </script>   

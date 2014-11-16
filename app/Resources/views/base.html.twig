@@ -37,7 +37,17 @@
             });
         });
 
- 
+        $('#user_list').on("click","#user_save", function(){
+    	    var FN = $('#user_firstName').val();
+    	    var LN = $('#user_lastName').val();
+    	    alert(FN);
+    	    $.post('{{path('new_user_save_routing')}}',{
+    	    	user_firstname:FN,
+    	    	user_lastname:LN
+            },function(data){
+                  alert(data);            
+            });
+       });  
     }) 
     </script> 
     </body>
