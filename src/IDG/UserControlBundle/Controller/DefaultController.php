@@ -43,13 +43,26 @@ class DefaultController extends Controller
     }
     
     public function saveNewUserAction(Request $request){
-        
-
         $user = new User();
-        $user->setFirstName($request->request->get('user_firstname'));
-        $user->setLastName($request->request->get('user_lastname'));
-        $user->save();
+        $user_form = $this->createForm(new UserType(), $user);
         
+        $request = $this->getRequest();
+        
+        if ('POST' === $request->getMethod()) {
+            $user_form->handleRequest($request);
+        
+            if ($user_form->isValid()) {
+                $user_form->save();
+        
+               
+            }
+        } else {
+        
+            $user = new User();
+            $user->setFirstName($request->request->get('user_firstname'));
+            $user->setLastName($request->request->get('user_lastname'));
+            $user->save();
+        }
         
         $Users = UserQuery::create()->find();
         return $this->render('IDGUserControlBundle:User:list.html.twig',array("users" => $Users));
