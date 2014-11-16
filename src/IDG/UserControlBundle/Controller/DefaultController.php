@@ -41,7 +41,7 @@ class DefaultController extends Controller
         $user_form = $this->createForm(new UserType(), $user);
     
         $user_form->handleRequest($request);
-        print_r($request->post->all());
+        print_r($request->request->all());
         //$validator = $this->get('validator');
        // $errors = $validator->validate($author);
     
