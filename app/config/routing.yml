@@ -18,3 +18,7 @@ new_user_routing:
 new_user_save_routing:
     pattern:  /user/saveNew/
     defaults: { _controller: IDGUserControlBundle:Default:saveNewUser }
+
+get_user_count_routing:
+    pattern:  /user/count/
+    defaults: { _controller: IDGUserControlBundle:Default:getUserCount }

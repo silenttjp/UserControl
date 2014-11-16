@@ -49,7 +49,11 @@
          	   $('#user_list').html(data);          
             });
 
-            
+    	    $.post('{{path('get_user_count_routing')}}',{
+    	    	getUser:1
+            },function(data){
+         	   $('#user_list').html(data);          
+            });
             return false;
        });  
     }) 
