@@ -19,7 +19,7 @@
     $( document ).ready(function() {
 
         
-
+        
         
         $('#view_users').click(function(){
         	$.post('{{path('user_bundle_routing')}}',{
@@ -35,7 +35,11 @@
             },function(data){
                    $('#user_list').html(data);             
             });
-        })  
+        });
+
+        $('#user_list').on("click","#user_save", function(){
+    	    alert('here');
+       });  
     }) 
     </script> 
     </body>
