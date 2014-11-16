@@ -51,7 +51,8 @@ class DefaultController extends Controller
         if ('POST' === $request->getMethod()) {
 
             $user_form->handleRequest($request);
-        print_r($user_form);
+        print_r($user_form->isValid());
+        echo ' !!! ';
         exit;
             if ($user_form->isValid()) {
                 $user_form->save();
