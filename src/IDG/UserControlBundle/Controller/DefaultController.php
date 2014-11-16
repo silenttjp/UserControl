@@ -30,7 +30,7 @@ class DefaultController extends Controller
     public function newUserFormAction(Request $request){
         $user = new User();
         
-        if(isset($request->request->get('id'))){
+        if(null !== ($request->request->get('id'))){
             $user = UserQuery::create()->findPk($request->request->get('id'));
         }
         
