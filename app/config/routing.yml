@@ -22,3 +22,7 @@ new_user_save_routing:
 get_user_count_routing:
     pattern:  /user/count/
     defaults: { _controller: IDGUserControlBundle:Default:getUserCount }
+    
+delete_user_routing:
+    pattern:  /user/delete/{id}
+    defaults: { _controller: IDGUserControlBundle:Default:deleteUser }

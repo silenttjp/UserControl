@@ -52,5 +52,13 @@ class DefaultController extends Controller
         return $this->render('IDGUserControlBundle:User:userCount.html.twig', array(  'user_count' => count($Users)));
     }
     
+    public function deleteUserAction($id){
+        $user = UserQuery::create()->findPk($id);
+        $user->delete();
+        
+        
+        return $this->getUsersAction();
+    }
+    
     
 }
