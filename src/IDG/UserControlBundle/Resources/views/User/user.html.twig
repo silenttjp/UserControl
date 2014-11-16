@@ -7,7 +7,7 @@
             <div class="col-sm-6">
             <div class="panel panel-default">
               <div class="panel-body">
-                User panel:  
+               User panel:  
                 <button class="btn btn-xs btn-primary" id="view_users" type="button">
                      Number Of Users: <span class="badge">{{ user_count }}</span>
                 </button>
@@ -21,4 +21,13 @@
        
     </div>
 </div>        
+
+          <script>
+		           $('#user_save').addClass("btn btn-success");
+		           $('#user_firstName').addClass("form-control");
+		           $('#user_lastName').addClass("form-control");
+		           $('#user_list').on("click","#user_save", function(){
+		        	    alert('here');
+			       });
+          </script>   
 {% endblock %}
