@@ -42,6 +42,7 @@ class DefaultController extends Controller
     
         $user_form->handleRequest($request);
         print_r($user_form);
+        exit;
         $validator = $this->get('validator');
         $errors = $validator->validate($author);
     
