@@ -57,7 +57,7 @@ class DefaultController extends Controller
         $user->delete();
         
         
-       $this->redirect($this->generateUrl('user_bundle_routing'));
+       $this->forward('Default','getUsers');
     }
     
     
