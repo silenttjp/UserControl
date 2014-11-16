@@ -29,6 +29,12 @@ class DefaultController extends Controller
     
     public function newUserFormAction(Request $request){
         $user = new User();
+        
+        if(isset($request->request->get('id'))){
+            $user = UserQuery::create()->findPk($request->request->get('id'));
+        }
+        
+        
         $user_form = $this->createForm(new UserType(), $user);
         
         return $this->render('IDGUserControlBundle:User:new.html.twig', array(
@@ -37,6 +43,8 @@ class DefaultController extends Controller
     }
     
     public function saveNewUserAction(Request $request){
+        
+
         $user = new User();
         $user->setFirstName($request->request->get('user_firstname'));
         $user->setLastName($request->request->get('user_lastname'));
