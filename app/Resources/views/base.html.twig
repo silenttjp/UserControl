@@ -38,6 +38,7 @@
         });
 
         $('#user_list').on("submit","#user_save", function(){
+            alert('123');
     	    var FN = $('#user_firstName').val();
     	    var LN = $('#user_lastName').val();
     	    $.post('{{path('new_user_save_routing')}}',{
