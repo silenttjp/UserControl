@@ -59,7 +59,7 @@ class DefaultController extends Controller
         
        $this->forward('Default','getUsers');
        
-       return $this->redirect($this->generateUrl('user_bundle_routing'));
+       return $this->redirect($this->generateUrl('user_bundle_routing'),array());
     }
     
     
