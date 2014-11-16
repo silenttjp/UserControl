@@ -79,7 +79,7 @@
            $.post('{{path('new_user_routing')}}',{
                id:id
            },function(data){
-                  $('#user_list').html(data);             
+                  $('#user-' + id).html(data);             
            });
         
 
