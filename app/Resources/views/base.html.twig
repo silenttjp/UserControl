@@ -62,7 +62,7 @@
       	         $.post('{{path('delete_user_routing')}}',{
       	             id:id
    	   	        },function(data){
-     	   	        alert(data);
+     	   	        
       	             $('#user_list').html(data); 
                 	 $.post('{{path('get_user_count_routing')}}',{
               	    	getUser:1
