@@ -49,7 +49,6 @@ class DefaultController extends Controller
     
     public function getUserCountAction(Request $request){
         $Users = UserQuery::create()->find();
-        
         return $this->render('IDGUserControlBundle:User:userCount.html.twig', array(  'user_count' => count($Users)));
     }
     
