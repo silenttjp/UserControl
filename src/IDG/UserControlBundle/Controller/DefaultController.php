@@ -33,4 +33,17 @@ class DefaultController extends Controller
             'form' => $user_form->createView(),
         ));
     }
+    
+    public function saveNewUser(Request $request){
+        $user = new User();
+        $user_form = $this->createForm(new UserType(), $user);
+    
+        $user_form->handleRequest($request);
+    
+        if ($user_form->isValid()) {
+            // the validation passed, do something with the $author object
+            return ('valid');
+           // return $this->redirect($this->generateUrl(...));
+        }
+    }
 }

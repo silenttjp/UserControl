@@ -14,3 +14,7 @@ user_bundle_routing:
 new_user_routing:
     pattern:  /user/new/
     defaults: { _controller: IDGUserControlBundle:Default:newUserForm }
+    
+new_user_save_routing:
+    pattern:  /user/saveNew/
+    defaults: { _controller: IDGUserControlBundle:Default:saveNewUser }
