@@ -56,9 +56,6 @@ class DefaultController extends Controller
         $user = UserQuery::create()->findPk($request->request->get('id'));
         $user->delete();
         
-        
-       $this->forward('Default','getUsers');
-       
        return $this->redirect($this->generateUrl('user_bundle_routing'),array());
     }
     
