@@ -38,15 +38,18 @@
         });
 
         $('#user_list').on("submit","#new_user", function(){
-            alert('123');
+
     	    var FN = $('#user_firstName').val();
     	    var LN = $('#user_lastName').val();
+    	    
     	    $.post('{{path('new_user_save_routing')}}',{
     	    	user_firstname:FN,
     	    	user_lastname:LN
             },function(data){
          	   $('#user_list').html(data);          
             });
+
+            
             return false;
        });  
     }) 
