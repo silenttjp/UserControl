@@ -42,11 +42,12 @@ class DefaultController extends Controller
         $user_form->handleRequest($request);
     
         if ($user_form->isValid()) {
+            echo '1';
             // the validation passed, do something with the $author object
             return ('valid');
            // return $this->redirect($this->generateUrl(...));
         }
-        
+        echo '2';
         return ('not');
     }
 }
