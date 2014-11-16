@@ -1,7 +1,0 @@
-IDG\UserControlBundle\Models\User:
-    properties:
-        first_name:
-            - NotBlank: ~
-        last_name:
-            - NotBlank: ~
-            

@@ -38,12 +38,11 @@ class DefaultController extends Controller
     
     public function saveNewUserAction(Request $request){
         $user = new User();
-        $user_form = $this->createForm(new UserType(), $user);
-    
-        $user_form->handleRequest($request);
         print_r($request->request->all());
-        //$validator = $this->get('validator');
-       // $errors = $validator->validate($author);
+        $user->setFirstName($request->request->get('user_firstname'));
+        $user->setLastName($request->request->get('user_firstname'));
+        $user->save();
+
     
         if ($user_form->isValid()) {
             echo '1';
