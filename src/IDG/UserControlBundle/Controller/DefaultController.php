@@ -42,15 +42,9 @@ class DefaultController extends Controller
         $user->setFirstName($request->request->get('user_firstname'));
         $user->setLastName($request->request->get('user_firstname'));
         $user->save();
-
-    
-        if ($user_form->isValid()) {
-            echo '1';
-            // the validation passed, do something with the $author object
-            return ('valid');
-           // return $this->redirect($this->generateUrl(...));
-        }
-        echo '2';
-        return ('not');
+        
+        
+        $Users = UserQuery::create()->find();
+        return $this->render('IDGUserControlBundle:User:list.html.twig',array("users" => $Users));
     }
 }
