@@ -17,8 +17,8 @@ class UserType extends BaseAbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('firstName', array("required"=>true));
-        $builder->add('lastName', array("required"=>true));
+        $builder->add('firstName','test', array("required"=>true));
+        $builder->add('lastName','test', array("required"=>true));
         $builder->add('save', 'button', array('label' => 'Add User'));
         
         
