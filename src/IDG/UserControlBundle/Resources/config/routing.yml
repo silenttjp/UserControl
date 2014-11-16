@@ -1,3 +1,25 @@
 idg_user_control_homepage:
     path:     /
     defaults: { _controller: IDGUserControlBundle:Default:index }
+
+    
+user_bundle_routing:
+    pattern:  /user/ajax/getUsers
+    defaults: { _controller: IDGUserControlBundle:Default:getUsers }
+
+
+new_user_routing:
+    pattern:  /user/new/
+    defaults: { _controller: IDGUserControlBundle:Default:newUserForm }
+    
+new_user_save_routing:
+    pattern:  /user/saveNew/
+    defaults: { _controller: IDGUserControlBundle:Default:saveNewUser }
+
+get_user_count_routing:
+    pattern:  /user/count/
+    defaults: { _controller: IDGUserControlBundle:Default:getUserCount }
+    
+delete_user_routing:
+    pattern:  /user/delete/
+    defaults: { _controller: IDGUserControlBundle:Default:deleteUser }
