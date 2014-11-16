@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+  <propel>
+    <datasources default="default">
+      <datasource id="default">
+        <adapter>mysql</adapter>
+        <connection>
+          <dsn>mysql:host=192.168.126.129;dbname=IDG</dsn>
+          <user>web</user>
+          <password>database</password>
+        </connection>
+      </datasource>
+    </datasources>
+  </propel>
+</config>
