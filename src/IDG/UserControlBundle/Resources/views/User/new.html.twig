@@ -1,6 +1,6 @@
 <form action="{{ path('new_user_routing') }}" id="new_user" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
-
+<button type="submit" id="user_save" name="user[save]" class="btn btn-success">Add User</button>
 </form>
 		    <script>
 		           $('#user_save').addClass("btn btn-success");
