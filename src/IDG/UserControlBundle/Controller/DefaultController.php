@@ -7,6 +7,7 @@ use IDG\UserControlBundle\Models\UserQuery;
 use IDG\UserControlBundle\Models\User;
 use IDG\UserControlBundle\Form\Type\UserType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class DefaultController extends Controller
@@ -40,6 +41,9 @@ class DefaultController extends Controller
         $user_form = $this->createForm(new UserType(), $user);
     
         $user_form->handleRequest($request);
+        print_r($user_form);
+        $validator = $this->get('validator');
+        $errors = $validator->validate($author);
     
         if ($user_form->isValid()) {
             echo '1';
