@@ -87,7 +87,7 @@ class DefaultController extends Controller
 
         $request = $this->getRequest();
     
-        if(empty($request->request->get('id'))){
+        if(!empty($request->request->get('list_id'))){
             $lists = ListsQuery::create()->findPk($request->request->get('list_id'));
         } else {
             $lists = new Lists();
