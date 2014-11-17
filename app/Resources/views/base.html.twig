@@ -138,6 +138,16 @@
                   $('#user-' + id).html(data);             
            });
         });
+
+       $('#user_list').on("click",".list_edit", function(){
+           var id = $(this).attr("ref");
+
+           $.post('{{path('new_lists_routing')}}',{
+               id:id
+           },function(data){
+                  $('#user-' + id).html(data);             
+           });
+        });
     }); 
     </script>
 </body>
