@@ -5,8 +5,9 @@ namespace IDG\UserControlBundle\Form\Type;
 use Propel\PropelBundle\Form\BaseAbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use IDG\UserControlBundle\Models\Lists;
-
+use IDG\UserControlBundle\Form\Type\ListsType;
 use IDG\UserControlBundle\Models\ListsQuery;
+
 
 class UserType extends BaseAbstractType
 {
