@@ -81,9 +81,7 @@ class DefaultController extends Controller
        return $this->redirect($this->generateUrl('user_bundle_routing'));
     }
     
-    public function editUserAction(Request $request){
-        
-    }
+
     
     
 }
