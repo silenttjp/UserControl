@@ -6,6 +6,7 @@ namespace IDG\UserControlBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use IDG\UserControlBundle\Models\UserQuery;
+use IDG\UserControlBundle\Models\ListsQuery;
 use IDG\UserControlBundle\Models\User;
 use IDG\UserControlBundle\Form\Type\UserType;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,8 +18,10 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $Users = UserQuery::create()->find();
+        $Lists = ListsQuery::create()->find();
 
-        return $this->render('IDGUserControlBundle:User:user.html.twig', array(  'user_count' => count($Users)));
+        return $this->render('IDGUserControlBundle:User:user.html.twig', array(  'user_count' => count($Users), 'lists_count' => count($Lists)
+        ));
     }
     
     public function getUsersAction(){
