@@ -51,7 +51,7 @@ class DefaultController extends Controller
             $user = new User();
             
             if(null !== ($request->request->get('id'))){
-                $user = UserQuery::create()->findPk($request->request->get('id'));
+                $user->setId($request->request->get('id'));
             }
             
             $user->setFirstName($request->request->get('user_firstname'));
