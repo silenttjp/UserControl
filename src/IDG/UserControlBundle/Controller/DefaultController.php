@@ -90,7 +90,7 @@ class DefaultController extends Controller
         $Lists = ListsQuery::create()->find();
          
     
-        return $this->render('IDGUserControlBundle:User:list.html.twig',array("users" => $Users));
+        return $this->render('IDGUserControlBundle:User:list.html.twig',array("lists" => $Lists));
     }
     
     
