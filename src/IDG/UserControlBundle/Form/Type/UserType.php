@@ -5,6 +5,7 @@ namespace IDG\UserControlBundle\Form\Type;
 use Propel\PropelBundle\Form\BaseAbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use IDG\UserControlBundle\Models\ListsQuery;
 
 class UserType extends BaseAbstractType
 {
@@ -22,6 +23,14 @@ class UserType extends BaseAbstractType
         $builder->add('lastName','text', array("required"=>true));
         $builder->add('id','hidden');
         $builder->add('Lists', new ListsType());
+        $builder->add('Lists', 'model', array(
+            'class' => 'IDG\UserControlBundle\Models\Lists',
+            'required' => true,
+            'multiple' => false,
+            'expanded' => false,
+            'label' => 'Add User To List',
+            'query' => ListsQuery::create()->orderByName(),
+        ));
         
     }
 }
