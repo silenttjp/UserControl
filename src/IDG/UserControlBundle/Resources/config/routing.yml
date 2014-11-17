@@ -6,14 +6,14 @@ idg_user_control_homepage:
 user_bundle_routing:
     pattern:  /user/ajax/getUsers
     defaults: { _controller: IDGUserControlBundle:Default:getUsers }
-        options:
+    options:
         expose: true
 
 
 new_user_routing:
     pattern:  /user/new/
     defaults: { _controller: IDGUserControlBundle:Default:newUserForm }
-        options:
+    options:
         expose: true
     
 new_user_save_routing:
@@ -43,7 +43,7 @@ edit_user_routing:
 get_lists_routing:
     pattern:  /lists/
     defaults: { _controller: IDGUserControlBundle:Default:getLists }
-        options:
+    options:
         expose: true
     
 new_lists_routing:
