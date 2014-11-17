@@ -68,7 +68,7 @@ class DefaultController extends Controller
 
             $request = $this->getRequest();
             
-            if(empty($request->request->get('id'))){
+            if(!empty($request->request->get('user_id'))){
                 $user = UserQuery::create()->findPk($request->request->get('user_id'));
             } else {
                 $user = new User();
@@ -88,7 +88,7 @@ class DefaultController extends Controller
         $request = $this->getRequest();
     
         if(empty($request->request->get('id'))){
-            $lists = ListsQuery::create()->findPk($request->request->get('lists_id'));
+            $lists = ListsQuery::create()->findPk($request->request->get('list_id'));
         } else {
             $lists = new Lists();
         }
