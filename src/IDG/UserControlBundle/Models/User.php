@@ -6,4 +6,7 @@ use IDG\UserControlBundle\Models\om\BaseUser;
 
 class User extends BaseUser
 {
+    public function getLists(){
+        
+    }
 }
