@@ -12,8 +12,8 @@ use IDG\UserControlBundle\Form\Type\UserType;
 use IDG\UserControlBundle\Form\Type\ListsType;
 use Symfony\Component\HttpFoundation\Request;
 use IDG\UserControlBundle\Models\Lists;
-use IDG\UserControlBundle\Models\User_ListQuery;
-use IDG\UserControlBundle\Models\User_List;
+use IDG\UserControlBundle\Models\UserListQuery;
+use IDG\UserControlBundle\Models\UserList;
 
 
 
@@ -82,9 +82,9 @@ class DefaultController extends Controller
             $user->save();
             
             $id = $user->getId();
-            //User_ListQuery::create()->filterByUserId($id)->delete();
+            UserListQuery::create()->filterByUserId($id)->delete();
             
-            $User_List = new User_List();
+            $User_List = new UserList();
             $User_List->setListId($request->request->get('user_list'));
             $User_List->setUserId($id);
             $User_List->setDateAdded(mktime());
