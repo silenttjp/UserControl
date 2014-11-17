@@ -29,7 +29,14 @@ class UserType extends BaseAbstractType
         $builder->add('Lists', 'collection', array(
             'type' => new ListsType()
         ));
-        
+        $builder->add('Lists', 'model', array(
+            'class' => 'IDG\UserControlBundle\Models\Lists',
+            'required' => true,
+            'multiple' => false,
+            'expanded' => false,
+            'label' => 'Pick a List',
+            'query' => ListsQuery::create()->orderByName(),
+        ));
         
         
         
