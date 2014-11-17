@@ -19,25 +19,25 @@ new_user_routing:
 new_user_save_routing:
     pattern:  /user/saveNew/
     defaults: { _controller: IDGUserControlBundle:Default:saveNewUser }
-        options:
+    options:
         expose: true
 
 get_user_count_routing:
     pattern:  /user/count/
     defaults: { _controller: IDGUserControlBundle:Default:getUserCount }
-        options:
+    options:
         expose: true
     
 delete_user_routing:
     pattern:  /user/delete/
     defaults: { _controller: IDGUserControlBundle:Default:deleteUser }
-        options:
+    options:
         expose: true
     
 edit_user_routing:
     pattern:  /user/edit/
     defaults: { _controller: IDGUserControlBundle:Default:editUser }
-        options:
+    options:
         expose: true
    
 get_lists_routing:
@@ -49,25 +49,25 @@ get_lists_routing:
 new_lists_routing:
     pattern:  /lists/new/
     defaults: { _controller: IDGUserControlBundle:Default:newListsForm }
-        options:
+    options:
         expose: true
     
 new_list_save_routing:
     pattern:  /lists/saveNew/
     defaults: { _controller: IDGUserControlBundle:Default:saveNewList }
-        options:
+    options:
         expose: true
     
 get_lists_count_routing:
     pattern:  /lists/count/
     defaults: { _controller: IDGUserControlBundle:Default:getListsCount }
-        options:
+    options:
         expose: true
     
 delete_list_routing:
     pattern:  /list/delete/
     defaults: { _controller: IDGUserControlBundle:Default:deleteList }
-        options:
+    options:
         expose: true
     
     
