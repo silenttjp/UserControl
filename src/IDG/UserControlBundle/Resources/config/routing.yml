@@ -32,6 +32,6 @@ get_lists_routing:
     pattern:  /lists/
     defaults: { _controller: IDGUserControlBundle:Default:getLists }
     
-new_user_routing:
+new_lists_routing:
     pattern:  /lists/new/
     defaults: { _controller: IDGUserControlBundle:Default:newListsForm }

@@ -45,7 +45,7 @@
         });
 
         $('#add_list').click(function(){
-        	$.post('{{path('new_user_routing')}}',{
+        	$.post('{{path('new_lists_routing')}}',{
                 getUsers:1
             },function(data){
                    $('#user_list').html(data);             
