@@ -87,7 +87,7 @@ class DefaultController extends Controller
             $User_List = new UserList();
             $User_List->setListId($request->request->get('user_list'));
             $User_List->setUserId($id);
-            $User_List->setDateAdded(mktime());
+            $User_List->setDateAdded(time());
             $User_List->save();
         
         $Users = UserQuery::create()->find();
