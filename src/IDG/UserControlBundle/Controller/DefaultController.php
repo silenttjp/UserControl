@@ -9,7 +9,9 @@ use IDG\UserControlBundle\Models\UserQuery;
 use IDG\UserControlBundle\Models\ListsQuery;
 use IDG\UserControlBundle\Models\User;
 use IDG\UserControlBundle\Form\Type\UserType;
+use IDG\UserControlBundle\Form\Type\ListsType;
 use Symfony\Component\HttpFoundation\Request;
+use IDG\UserControlBundle\Models\Lists;
 
 
 
@@ -45,6 +47,21 @@ class DefaultController extends Controller
         return $this->render('IDGUserControlBundle:User:new.html.twig', array(
             'form' => $user_form->createView(),
         ));
+    }
+    
+    public function newListsAction(Request $request){
+        $lists = new Lists();
+        
+        if(null !== ($request->request->get('id'))){
+            $lists = ListsQuery::create()->findPk($request->request->get('id'));
+        }
+        
+        $list_form = $this->createForm(new ListsType(), $lists);
+        
+        return $this->render('IDGUserControlBundle:list:new.html.twig', array(
+            'form' => $list_form->createView(),
+        ));
+        
     }
     
     public function saveNewUserAction(){
