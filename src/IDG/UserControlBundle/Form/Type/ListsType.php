@@ -4,6 +4,7 @@ namespace IDG\UserControlBundle\Form\Type;
 
 use Propel\PropelBundle\Form\BaseAbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ListsType extends BaseAbstractType
 {
@@ -22,5 +23,10 @@ class ListsType extends BaseAbstractType
         $builder->add('id','hidden');
     }
     
-
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'IDG\UserControlBundle\Models\User',
+        ));
+    }
 }
