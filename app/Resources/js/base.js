@@ -17,7 +17,7 @@ $( document ).ready(function() {
         });
         
         $('#add_user').click(function(){
-        	$.post(Routing.generate('new_user_routing')',{
+        	$.post(Routing.generate('new_user_routing'),{
                 	getUsers:1
             },function(data){
                    	$('#user_list').html(data);             
@@ -25,7 +25,7 @@ $( document ).ready(function() {
         });
 
         $('#add_list').click(function(){
-        	$.post(Routing.generate('new_lists_routing')',{
+        	$.post(Routing.generate('new_lists_routing'),{
                 	getUsers:1
             },function(data){
                    	$('#user_list').html(data);             
