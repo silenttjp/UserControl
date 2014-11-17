@@ -49,7 +49,7 @@ class DefaultController extends Controller
 
         
             $user = new User();
-            
+            print_r($request->request->all());exit;
             if(null !== ($request->request->get('user_id'))){
                 $user->setId($request->request->get('user_id'));
             }
