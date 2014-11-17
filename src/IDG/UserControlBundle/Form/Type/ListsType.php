@@ -18,6 +18,6 @@ class ListsType extends BaseAbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name');
-        $builder->add('active');
+        $builder->add('active','hidden');
     }
 }
