@@ -93,7 +93,7 @@ class DefaultController extends Controller
             $lists = new Lists();
         }
     
-        $lists->setName($request->request->get('lists_name'));
+        $lists->setName($request->request->get('list_name'));
         $lists->setActive('1');
         $lists->save();
     
