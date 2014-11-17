@@ -87,7 +87,7 @@ $( document ).ready(function() {
    	   	        },function(data){
      	   	        
       	             $('#user_list').html(data); 
-                	 $.post(Routing.generate(''get_user_count_routing'),{
+                	 $.post(Routing.generate('get_user_count_routing'),{
               	    	getUser:1
                      },function(data){
                    	    $('#user_count').html(data);          
