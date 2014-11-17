@@ -46,6 +46,6 @@ get_lists_count_routing:
     
 delete_list_routing:
     pattern:  /list/delete/
-    defaults: { _controller: IDGUserControlBundle:Default:deleteListr }
+    defaults: { _controller: IDGUserControlBundle:Default:deleteList }
     
     
