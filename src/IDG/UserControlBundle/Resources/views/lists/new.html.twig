@@ -1,0 +1,13 @@
+<form action="{{ path('new_user_routing') }}" id="new_list" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+<button type="submit" id="lists_save" name="lists[save]" class="btn btn-success">Add User</button>
+</form>
+		    <script>
+		           $('#user_save').addClass("btn btn-success");
+		           $('#user_firstName').addClass("form-control");
+		           $('#user_lastName').addClass("form-control");
+		           $('label[for="user_id"]').hide();
+		           $('#user_id').addClass("form-control").hide();
+
+		           
+          </script>   
