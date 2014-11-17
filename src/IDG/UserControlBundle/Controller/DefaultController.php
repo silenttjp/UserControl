@@ -49,7 +49,7 @@ class DefaultController extends Controller
         ));
     }
     
-    public function newListsAction(Request $request){
+    public function newListsFormAction(Request $request){
         $lists = new Lists();
         
         if(null !== ($request->request->get('id'))){
