@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use IDG\UserControlBundle\Models\Lists;
 use IDG\UserControlBundle\Models\User_ListQuery;
 use IDG\UserControlBundle\Models\User_List;
-use IDG\UserControlBundle\Models\User_ListQuery;
+
 
 
 
