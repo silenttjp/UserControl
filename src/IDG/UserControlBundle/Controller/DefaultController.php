@@ -42,7 +42,7 @@ class DefaultController extends Controller
         ));
     }
     
-    public function saveNewUserAction(Request $request){
+    public function saveNewUserAction(){
         $user = new User();
 
         
