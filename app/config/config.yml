@@ -81,7 +81,7 @@ assetic:
                 
         base:
               inputs:
-                   - '%kernel.root_dir%/Resources/public/js/base.js'
+                   - '%kernel.root_dir%/Resources/js/base.js'
 
 # Doctrine Configuration
 doctrine:
