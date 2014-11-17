@@ -25,12 +25,14 @@ class __TwigTemplate_8d50bf1e65ace9feafdc52ec7bd32129469e45df29291f2e9413caec01c
         // line 2
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'widget');
         echo "
-
+<button type=\"submit\" id=\"user_save\" name=\"user[save]\" class=\"btn btn-success\">Add User</button>
 </form>
 \t\t    <script>
 \t\t           \$('#user_save').addClass(\"btn btn-success\");
 \t\t           \$('#user_firstName').addClass(\"form-control\");
 \t\t           \$('#user_lastName').addClass(\"form-control\");
+\t\t           \$('#user_Lists').addClass(\"form-control\");
+
 
 \t\t           
           </script>   ";

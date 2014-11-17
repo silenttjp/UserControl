@@ -20,117 +20,88 @@ class __TwigTemplate_ef9db2bf362cd76d815e51a666c8f5e73730e3e6d5203da0e5c073c71a7
         // line 1
         echo "<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset=\"UTF-8\" />
-        <title>";
+<head>
+<meta charset=\"UTF-8\" />
+<title>";
         // line 5
         $this->displayBlock('title', $context, $blocks);
-        echo "</title>
-        ";
-        // line 6
+        echo "</title> ";
         if (isset($context['assetic']['debug']) && $context['assetic']['debug']) {
-            // asset "8fed0c3_0"
-            $context["asset_url"] = isset($context['assetic']['use_controller']) && $context['assetic']['use_controller'] ? $this->env->getExtension('routing')->getPath("_assetic_8fed0c3_0") : $this->env->getExtension('assets')->getAssetUrl("_controller/css/8fed0c3_part_1.css");
+            // asset "fddb9b6_0"
+            $context["asset_url"] = isset($context['assetic']['use_controller']) && $context['assetic']['use_controller'] ? $this->env->getExtension('routing')->getPath("_assetic_fddb9b6_0") : $this->env->getExtension('assets')->getAssetUrl("_controller/css/fddb9b6_part_1.css");
             // line 7
-            echo "    \t\t<link rel=\"stylesheet\" href=\"";
+            echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\"
+\thref=\"";
+            // line 8
             echo twig_escape_filter($this->env, (isset($context["asset_url"]) ? $context["asset_url"] : $this->getContext($context, "asset_url")), "html", null, true);
             echo "\" />
-\t\t";
+";
         } else {
-            // asset "8fed0c3"
-            $context["asset_url"] = isset($context['assetic']['use_controller']) && $context['assetic']['use_controller'] ? $this->env->getExtension('routing')->getPath("_assetic_8fed0c3") : $this->env->getExtension('assets')->getAssetUrl("_controller/css/8fed0c3.css");
-            echo "    \t\t<link rel=\"stylesheet\" href=\"";
+            // asset "fddb9b6"
+            $context["asset_url"] = isset($context['assetic']['use_controller']) && $context['assetic']['use_controller'] ? $this->env->getExtension('routing')->getPath("_assetic_fddb9b6") : $this->env->getExtension('assets')->getAssetUrl("_controller/css/fddb9b6.css");
+            // line 7
+            echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\"
+\thref=\"";
+            // line 8
             echo twig_escape_filter($this->env, (isset($context["asset_url"]) ? $context["asset_url"] : $this->getContext($context, "asset_url")), "html", null, true);
             echo "\" />
-\t\t";
+";
         }
         unset($context["asset_url"]);
-        // line 9
-        echo "        <link rel=\"icon\" type=\"image/x-icon\" href=\"";
+        // line 10
+        echo "<link rel=\"icon\" type=\"image/x-icon\" href=\"";
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("favicon.ico"), "html", null, true);
         echo "\" />
-    </head>
-    <body>
-        ";
-        // line 12
-        $this->displayBlock('body', $context, $blocks);
+</head>
+<body>
+\t";
         // line 13
-        echo "        ";
+        $this->displayBlock('body', $context, $blocks);
+        // line 14
+        echo "\t
+\t<script src=\"";
+        // line 15
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/fosjsrouting/js/router.js"), "html", null, true);
+        echo "\"></script>
+    <script src=\"";
+        // line 16
+        echo $this->env->getExtension('routing')->getPath("fos_js_routing_js", array("callback" => "fos.Router.setData"));
+        echo "\"></script>
+\t
+\t";
+        // line 18
         if (isset($context['assetic']['debug']) && $context['assetic']['debug']) {
-            // asset "fe10066_0"
-            $context["asset_url"] = isset($context['assetic']['use_controller']) && $context['assetic']['use_controller'] ? $this->env->getExtension('routing')->getPath("_assetic_fe10066_0") : $this->env->getExtension('assets')->getAssetUrl("_controller/js/fe10066_part_1.js");
-            // line 16
-            echo "   \t\t\t <script src=\"";
+            // asset "0b7d4ae_0"
+            $context["asset_url"] = isset($context['assetic']['use_controller']) && $context['assetic']['use_controller'] ? $this->env->getExtension('routing')->getPath("_assetic_0b7d4ae_0") : $this->env->getExtension('assets')->getAssetUrl("_controller/js/0b7d4ae_part_1.js");
+            // line 20
+            echo "\t<script type=\"text/javascript\" src=\"";
             echo twig_escape_filter($this->env, (isset($context["asset_url"]) ? $context["asset_url"] : $this->getContext($context, "asset_url")), "html", null, true);
             echo "\"></script>
-\t\t";
+\t";
+            // asset "0b7d4ae_1"
+            $context["asset_url"] = isset($context['assetic']['use_controller']) && $context['assetic']['use_controller'] ? $this->env->getExtension('routing')->getPath("_assetic_0b7d4ae_1") : $this->env->getExtension('assets')->getAssetUrl("_controller/js/0b7d4ae_part_2.js");
+            echo "\t<script type=\"text/javascript\" src=\"";
+            echo twig_escape_filter($this->env, (isset($context["asset_url"]) ? $context["asset_url"] : $this->getContext($context, "asset_url")), "html", null, true);
+            echo "\"></script>
+\t";
+            // asset "0b7d4ae_2"
+            $context["asset_url"] = isset($context['assetic']['use_controller']) && $context['assetic']['use_controller'] ? $this->env->getExtension('routing')->getPath("_assetic_0b7d4ae_2") : $this->env->getExtension('assets')->getAssetUrl("_controller/js/0b7d4ae_part_3.js");
+            echo "\t<script type=\"text/javascript\" src=\"";
+            echo twig_escape_filter($this->env, (isset($context["asset_url"]) ? $context["asset_url"] : $this->getContext($context, "asset_url")), "html", null, true);
+            echo "\"></script>
+\t";
         } else {
-            // asset "fe10066"
-            $context["asset_url"] = isset($context['assetic']['use_controller']) && $context['assetic']['use_controller'] ? $this->env->getExtension('routing')->getPath("_assetic_fe10066") : $this->env->getExtension('assets')->getAssetUrl("_controller/js/fe10066.js");
-            echo "   \t\t\t <script src=\"";
+            // asset "0b7d4ae"
+            $context["asset_url"] = isset($context['assetic']['use_controller']) && $context['assetic']['use_controller'] ? $this->env->getExtension('routing')->getPath("_assetic_0b7d4ae") : $this->env->getExtension('assets')->getAssetUrl("_controller/js/0b7d4ae.js");
+            echo "\t<script type=\"text/javascript\" src=\"";
             echo twig_escape_filter($this->env, (isset($context["asset_url"]) ? $context["asset_url"] : $this->getContext($context, "asset_url")), "html", null, true);
             echo "\"></script>
-\t\t";
+\t";
         }
         unset($context["asset_url"]);
-        // line 18
-        echo "\t\t    <script>
-    \$( document ).ready(function() {
-
-        
-        
-        
-        \$('#view_users').click(function(){
-        \t\$.post('";
-        // line 25
-        echo $this->env->getExtension('routing')->getPath("user_bundle_routing");
-        echo "',{
-                getUsers:1
-            },function(data){
-                   \$('#user_list').html(data);             
-            });
-        });
-        
-        \$('#add_user').click(function(){
-        \t\$.post('";
-        // line 33
-        echo $this->env->getExtension('routing')->getPath("new_user_routing");
-        echo "',{
-                getUsers:1
-            },function(data){
-                   \$('#user_list').html(data);             
-            });
-        });
-
-        \$('#user_list').on(\"submit\",\"#new_user\", function(){
-
-    \t    var FN = \$('#user_firstName').val();
-    \t    var LN = \$('#user_lastName').val();
-    \t    
-    \t    \$.post('";
-        // line 45
-        echo $this->env->getExtension('routing')->getPath("new_user_save_routing");
-        echo "',{
-    \t    \tuser_firstname:FN,
-    \t    \tuser_lastname:LN
-            },function(data){
-         \t   \$('#user_list').html(data); 
-          \t  \$.post('";
-        // line 50
-        echo $this->env->getExtension('routing')->getPath("get_user_count_routing");
-        echo "',{
-        \t    \tgetUser:1
-                },function(data){
-             \t   \$('#user_count').html(data);          
-                });         
-            });
-
-    \t    
-            return false;
-       });  
-    }) 
-    </script> 
-    </body>
+        // line 22
+        echo "
+</body>
 </html>
 ";
     }
@@ -141,7 +112,7 @@ class __TwigTemplate_ef9db2bf362cd76d815e51a666c8f5e73730e3e6d5203da0e5c073c71a7
         echo "Welcome!";
     }
 
-    // line 12
+    // line 13
     public function block_body($context, array $blocks = array())
     {
     }
@@ -158,6 +129,6 @@ class __TwigTemplate_ef9db2bf362cd76d815e51a666c8f5e73730e3e6d5203da0e5c073c71a7
 
     public function getDebugInfo()
     {
-        return array (  145 => 12,  139 => 5,  120 => 50,  112 => 45,  97 => 33,  86 => 25,  77 => 18,  63 => 16,  58 => 13,  56 => 12,  49 => 9,  35 => 7,  31 => 6,  27 => 5,  21 => 1,);
+        return array (  116 => 13,  110 => 5,  103 => 22,  77 => 20,  73 => 18,  68 => 16,  64 => 15,  61 => 14,  59 => 13,  52 => 10,  46 => 8,  43 => 7,  36 => 8,  33 => 7,  27 => 5,  21 => 1,);
     }
 }

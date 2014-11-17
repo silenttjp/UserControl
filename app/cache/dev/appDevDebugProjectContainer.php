@@ -38,7 +38,6 @@ class appDevDebugProjectContainer extends Container
             'assetic.cache' => 'getAssetic_CacheService',
             'assetic.controller' => 'getAssetic_ControllerService',
             'assetic.filter.cssrewrite' => 'getAssetic_Filter_CssrewriteService',
-            'assetic.filter.yui_css' => 'getAssetic_Filter_YuiCssService',
             'assetic.filter_manager' => 'getAssetic_FilterManagerService',
             'assetic.request_listener' => 'getAssetic_RequestListenerService',
             'cache_clearer' => 'getCacheClearerService',
@@ -294,7 +293,7 @@ class appDevDebugProjectContainer extends Container
 
         $this->services['assetic.asset_manager'] = $instance = new \Assetic\Factory\LazyAssetManager($this->get('assetic.asset_factory'), array('config' => new \Symfony\Bundle\AsseticBundle\Factory\Loader\ConfigurationLoader(), 'twig' => new \Assetic\Factory\Loader\CachedFormulaLoader(new \Assetic\Extension\Twig\TwigFormulaLoader($this->get('twig'), $this->get('monolog.logger.assetic', ContainerInterface::NULL_ON_INVALID_REFERENCE)), new \Assetic\Cache\ConfigCache('/var/www/html/userCcontrol/app/cache/dev/assetic/config'), true)));
 
-        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\ConfigurationResource(array('jquery2' => array(0 => array(0 => '/var/www/html/userCcontrol/app/Resources/public/jquery/jquery-2.1.1.js'), 1 => array(), 2 => array()), 'bootstrap' => array(0 => array(0 => '/var/www/html/userCcontrol/app/Resources/public/bootstrap/css/bootstrap.css', 1 => '/var/www/html/userCcontrol/app/Resources/public/bootstrap/css/bootstrap-responsive.min.css'), 1 => array(), 2 => array()))), 'config');
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\ConfigurationResource(array('bootstrap_js' => array(0 => array(0 => '/var/www/html/userCcontrol/app/../vendor/twitter/bootstrap/dist/js/bootstrap.js'), 1 => array(), 2 => array()), 'bootstrap_css' => array(0 => array(0 => '/var/www/html/userCcontrol/app/../vendor/twitter/bootstrap/dist/css/bootstrap.css', 1 => '/var/www/html/userCcontrol/app/../vendor/twitter/bootstrap/dist/css/bootstrap-theme.css'), 1 => array(0 => 'cssrewrite'), 2 => array()), 'bootstrap_glyphicons_ttf' => array(0 => array(0 => '/var/www/html/userCcontrol/app/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf'), 1 => array(), 2 => array('output' => 'fonts/glyphicons-halflings-regular.ttf')), 'bootstrap_glyphicons_eot' => array(0 => array(0 => '/var/www/html/userCcontrol/app/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.eot'), 1 => array(), 2 => array('output' => 'fonts/glyphicons-halflings-regular.eot')), 'bootstrap_glyphicons_svg' => array(0 => array(0 => '/var/www/html/userCcontrol/app/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.svg'), 1 => array(), 2 => array('output' => 'fonts/glyphicons-halflings-regular.svg')), 'bootstrap_glyphicons_woff' => array(0 => array(0 => '/var/www/html/userCcontrol/app/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.woff'), 1 => array(), 2 => array('output' => 'fonts/glyphicons-halflings-regular.woff')), 'jquery' => array(0 => array(0 => '/var/www/html/userCcontrol/app/../vendor/components/jquery/jquery.js'), 1 => array(), 2 => array()), 'base' => array(0 => array(0 => '/var/www/html/userCcontrol/app/Resources/js/base.js'), 1 => array(), 2 => array()))), 'config');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'IDGUserControlBundle', '/var/www/html/userCcontrol/app/Resources/IDGUserControlBundle/views', '/\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'IDGUserControlBundle', '/var/www/html/userCcontrol/src/IDG/UserControlBundle/Resources/views', '/\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, '', '/var/www/html/userCcontrol/app/Resources/views', '/\\.[^.]+\\.twig$/'), 'twig');
 
@@ -325,26 +324,6 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
-     * Gets the 'assetic.filter.yui_css' service.
-     *
-     * This service is shared.
-     * This method always returns the same instance of the service.
-     *
-     * @return \Assetic\Filter\Yui\CssCompressorFilter A Assetic\Filter\Yui\CssCompressorFilter instance.
-     */
-    protected function getAssetic_Filter_YuiCssService()
-    {
-        $this->services['assetic.filter.yui_css'] = $instance = new \Assetic\Filter\Yui\CssCompressorFilter('/usr/share/yui-compressor/yui-compressor.jar', '/usr/bin/java');
-
-        $instance->setCharset('UTF-8');
-        $instance->setTimeout(NULL);
-        $instance->setStackSize(NULL);
-        $instance->setLineBreak(NULL);
-
-        return $instance;
-    }
-
-    /**
      * Gets the 'assetic.filter_manager' service.
      *
      * This service is shared.
@@ -354,7 +333,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAssetic_FilterManagerService()
     {
-        return $this->services['assetic.filter_manager'] = new \Symfony\Bundle\AsseticBundle\FilterManager($this, array('cssrewrite' => 'assetic.filter.cssrewrite', 'yui_css' => 'assetic.filter.yui_css'));
+        return $this->services['assetic.filter_manager'] = new \Symfony\Bundle\AsseticBundle\FilterManager($this, array('cssrewrite' => 'assetic.filter.cssrewrite'));
     }
 
     /**
@@ -4036,13 +4015,6 @@ class appDevDebugProjectContainer extends Container
             'assetic.ruby.bin' => '/usr/bin/ruby',
             'assetic.sass.bin' => '/usr/bin/sass',
             'assetic.filter.cssrewrite.class' => 'Assetic\\Filter\\CssRewriteFilter',
-            'assetic.filter.yui_css.class' => 'Assetic\\Filter\\Yui\\CssCompressorFilter',
-            'assetic.filter.yui_css.java' => '/usr/bin/java',
-            'assetic.filter.yui_css.jar' => '/usr/share/yui-compressor/yui-compressor.jar',
-            'assetic.filter.yui_css.charset' => 'UTF-8',
-            'assetic.filter.yui_css.stacksize' => NULL,
-            'assetic.filter.yui_css.timeout' => NULL,
-            'assetic.filter.yui_css.linebreak' => NULL,
             'assetic.twig_extension.functions' => array(
 
             ),

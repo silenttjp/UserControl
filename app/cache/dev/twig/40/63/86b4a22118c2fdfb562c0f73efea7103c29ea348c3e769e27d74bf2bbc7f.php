@@ -31,17 +31,30 @@ class __TwigTemplate_406386b4a22118c2fdfb562c0f73efea7103c29ea348c3e769e27d74bf2
         $context['_seq'] = twig_ensure_traversable((isset($context["users"]) ? $context["users"] : $this->getContext($context, "users")));
         foreach ($context['_seq'] as $context["_key"] => $context["user"]) {
             // line 11
-            echo "    <li class=\"list-group-item\">";
+            echo "    <li class=\"list-group-item\" id=\"user-";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["user"], "id", array()), "html", null, true);
+            echo "\">";
             echo twig_escape_filter($this->env, $this->getAttribute($context["user"], "FirstName", array()), "html", null, true);
             echo " ";
             echo twig_escape_filter($this->env, $this->getAttribute($context["user"], "LastName", array()), "html", null, true);
-            echo "</li>
+            echo "
+        <button ref=\"";
+            // line 12
+            echo twig_escape_filter($this->env, $this->getAttribute($context["user"], "id", array()), "html", null, true);
+            echo "\" class=\"btn btn-danger btn-xs glyphicon glyphicon-remove pull-right user_id\"></button>
+        <button ref=\"";
+            // line 13
+            echo twig_escape_filter($this->env, $this->getAttribute($context["user"], "id", array()), "html", null, true);
+            echo "\" class=\"btn btn-success btn-xs glyphicon glyphicon-pencil pull-right user_edit\"></button>
+
+    </li>
+    
     ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['user'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 13
+        // line 18
         echo "  
   </ul>
 </div>
@@ -60,6 +73,6 @@ class __TwigTemplate_406386b4a22118c2fdfb562c0f73efea7103c29ea348c3e769e27d74bf2
 
     public function getDebugInfo()
     {
-        return array (  45 => 13,  34 => 11,  30 => 10,  19 => 1,);
+        return array (  58 => 18,  47 => 13,  43 => 12,  34 => 11,  30 => 10,  19 => 1,);
     }
 }

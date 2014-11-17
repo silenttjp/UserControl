@@ -20,7 +20,10 @@
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/jsrouting-bundle": "2.0.*@dev", 
-        "propel/propel-bundle": "1.4.*"
+        "propel/propel-bundle": "1.4.*",
+
+   "twitter/bootstrap": "3.2.0",
+    "components/jquery": "1.11.1"
 },
     "scripts": {
         "post-install-cmd": [

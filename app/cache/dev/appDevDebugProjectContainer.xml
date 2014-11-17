@@ -448,13 +448,6 @@
     <parameter key="assetic.ruby.bin">/usr/bin/ruby</parameter>
     <parameter key="assetic.sass.bin">/usr/bin/sass</parameter>
     <parameter key="assetic.filter.cssrewrite.class">Assetic\Filter\CssRewriteFilter</parameter>
-    <parameter key="assetic.filter.yui_css.class">Assetic\Filter\Yui\CssCompressorFilter</parameter>
-    <parameter key="assetic.filter.yui_css.java">/usr/bin/java</parameter>
-    <parameter key="assetic.filter.yui_css.jar">/usr/share/yui-compressor/yui-compressor.jar</parameter>
-    <parameter key="assetic.filter.yui_css.charset">UTF-8</parameter>
-    <parameter key="assetic.filter.yui_css.stacksize">null</parameter>
-    <parameter key="assetic.filter.yui_css.timeout">null</parameter>
-    <parameter key="assetic.filter.yui_css.linebreak">null</parameter>
     <parameter key="assetic.twig_extension.functions" type="collection"/>
     <parameter key="assetic.controller.class">Symfony\Bundle\AsseticBundle\Controller\AsseticController</parameter>
     <parameter key="assetic.routing_loader.class">Symfony\Bundle\AsseticBundle\Routing\AsseticLoader</parameter>
@@ -2220,7 +2213,6 @@
       <argument type="service" id="service_container"/>
       <argument type="collection">
         <argument key="cssrewrite">assetic.filter.cssrewrite</argument>
-        <argument key="yui_css">assetic.filter.yui_css</argument>
       </argument>
     </service>
     <service id="assetic.asset_manager" class="Assetic\Factory\LazyAssetManager">
@@ -2257,17 +2249,69 @@
           <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\ConfigurationResource" public="false">
             <tag name="assetic.formula_resource" loader="config"/>
             <argument type="collection">
-              <argument key="jquery2" type="collection">
+              <argument key="bootstrap_js" type="collection">
                 <argument type="collection">
-                  <argument>/var/www/html/userCcontrol/app/Resources/public/jquery/jquery-2.1.1.js</argument>
+                  <argument>/var/www/html/userCcontrol/app/../vendor/twitter/bootstrap/dist/js/bootstrap.js</argument>
                 </argument>
                 <argument type="collection"/>
                 <argument type="collection"/>
               </argument>
-              <argument key="bootstrap" type="collection">
+              <argument key="bootstrap_css" type="collection">
                 <argument type="collection">
-                  <argument>/var/www/html/userCcontrol/app/Resources/public/bootstrap/css/bootstrap.css</argument>
-                  <argument>/var/www/html/userCcontrol/app/Resources/public/bootstrap/css/bootstrap-responsive.min.css</argument>
+                  <argument>/var/www/html/userCcontrol/app/../vendor/twitter/bootstrap/dist/css/bootstrap.css</argument>
+                  <argument>/var/www/html/userCcontrol/app/../vendor/twitter/bootstrap/dist/css/bootstrap-theme.css</argument>
+                </argument>
+                <argument type="collection">
+                  <argument>cssrewrite</argument>
+                </argument>
+                <argument type="collection"/>
+              </argument>
+              <argument key="bootstrap_glyphicons_ttf" type="collection">
+                <argument type="collection">
+                  <argument>/var/www/html/userCcontrol/app/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf</argument>
+                </argument>
+                <argument type="collection"/>
+                <argument type="collection">
+                  <argument key="output">fonts/glyphicons-halflings-regular.ttf</argument>
+                </argument>
+              </argument>
+              <argument key="bootstrap_glyphicons_eot" type="collection">
+                <argument type="collection">
+                  <argument>/var/www/html/userCcontrol/app/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.eot</argument>
+                </argument>
+                <argument type="collection"/>
+                <argument type="collection">
+                  <argument key="output">fonts/glyphicons-halflings-regular.eot</argument>
+                </argument>
+              </argument>
+              <argument key="bootstrap_glyphicons_svg" type="collection">
+                <argument type="collection">
+                  <argument>/var/www/html/userCcontrol/app/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.svg</argument>
+                </argument>
+                <argument type="collection"/>
+                <argument type="collection">
+                  <argument key="output">fonts/glyphicons-halflings-regular.svg</argument>
+                </argument>
+              </argument>
+              <argument key="bootstrap_glyphicons_woff" type="collection">
+                <argument type="collection">
+                  <argument>/var/www/html/userCcontrol/app/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.woff</argument>
+                </argument>
+                <argument type="collection"/>
+                <argument type="collection">
+                  <argument key="output">fonts/glyphicons-halflings-regular.woff</argument>
+                </argument>
+              </argument>
+              <argument key="jquery" type="collection">
+                <argument type="collection">
+                  <argument>/var/www/html/userCcontrol/app/../vendor/components/jquery/jquery.js</argument>
+                </argument>
+                <argument type="collection"/>
+                <argument type="collection"/>
+              </argument>
+              <argument key="base" type="collection">
+                <argument type="collection">
+                  <argument>/var/www/html/userCcontrol/app/Resources/js/base.js</argument>
                 </argument>
                 <argument type="collection"/>
                 <argument type="collection"/>
@@ -2336,23 +2380,6 @@
     </service>
     <service id="assetic.filter.cssrewrite" class="Assetic\Filter\CssRewriteFilter">
       <tag name="assetic.filter" alias="cssrewrite"/>
-    </service>
-    <service id="assetic.filter.yui_css" class="Assetic\Filter\Yui\CssCompressorFilter">
-      <tag name="assetic.filter" alias="yui_css"/>
-      <argument>/usr/share/yui-compressor/yui-compressor.jar</argument>
-      <argument>/usr/bin/java</argument>
-      <call method="setCharset">
-        <argument>UTF-8</argument>
-      </call>
-      <call method="setTimeout">
-        <argument>null</argument>
-      </call>
-      <call method="setStackSize">
-        <argument>null</argument>
-      </call>
-      <call method="setLineBreak">
-        <argument>null</argument>
-      </call>
     </service>
     <service id="assetic.controller" class="Symfony\Bundle\AsseticBundle\Controller\AsseticController" scope="prototype">
       <argument type="service" id="request"/>

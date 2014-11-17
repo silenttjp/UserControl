@@ -27,56 +27,150 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         $context = $this->context;
         $request = $this->request;
 
-        // _assetic_bootstrap
-        if ($pathinfo === '/css/8fed0c3_part_1.css') {
-            return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_bootstrap',);
-        }
+        if (0 === strpos($pathinfo, '/assetic/bootstrap_')) {
+            if (0 === strpos($pathinfo, '/assetic/bootstrap_js')) {
+                // _assetic_bootstrap_js
+                if ($pathinfo === '/assetic/bootstrap_js.js') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_js',  'pos' => NULL,  '_format' => 'js',  '_route' => '_assetic_bootstrap_js',);
+                }
 
-        if (0 === strpos($pathinfo, '/assetic/bootstrap_bootstrap')) {
-            // _assetic_bootstrap_0
-            if ($pathinfo === '/assetic/bootstrap_bootstrap_1.css') {
-                return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_bootstrap_0',);
+                // _assetic_bootstrap_js_0
+                if ($pathinfo === '/assetic/bootstrap_js_bootstrap_1.js') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_js',  'pos' => 0,  '_format' => 'js',  '_route' => '_assetic_bootstrap_js_0',);
+                }
+
             }
 
-            // _assetic_bootstrap_1
-            if ($pathinfo === '/assetic/bootstrap_bootstrap-responsive.min_2.css') {
-                return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap',  'pos' => 1,  '_format' => 'css',  '_route' => '_assetic_bootstrap_1',);
-            }
+            if (0 === strpos($pathinfo, '/assetic/bootstrap_css')) {
+                // _assetic_bootstrap_css
+                if ($pathinfo === '/assetic/bootstrap_css.css') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_css',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_bootstrap_css',);
+                }
 
-        }
+                if (0 === strpos($pathinfo, '/assetic/bootstrap_css_bootstrap')) {
+                    // _assetic_bootstrap_css_0
+                    if ($pathinfo === '/assetic/bootstrap_css_bootstrap_1.css') {
+                        return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_css',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_bootstrap_css_0',);
+                    }
 
-        // _assetic_jquery2
-        if ($pathinfo === '/js/fe10066_part_1.js') {
-            return array (  '_controller' => 'assetic.controller:render',  'name' => 'jquery2',  'pos' => NULL,  '_format' => 'js',  '_route' => '_assetic_jquery2',);
-        }
+                    // _assetic_bootstrap_css_1
+                    if ($pathinfo === '/assetic/bootstrap_css_bootstrap-theme_2.css') {
+                        return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_css',  'pos' => 1,  '_format' => 'css',  '_route' => '_assetic_bootstrap_css_1',);
+                    }
 
-        // _assetic_jquery2_0
-        if ($pathinfo === '/assetic/jquery2_jquery-2.1.1_1.js') {
-            return array (  '_controller' => 'assetic.controller:render',  'name' => 'jquery2',  'pos' => 0,  '_format' => 'js',  '_route' => '_assetic_jquery2_0',);
-        }
+                }
 
-        if (0 === strpos($pathinfo, '/css/8fed0c3')) {
-            // _assetic_8fed0c3
-            if ($pathinfo === '/css/8fed0c3.css') {
-                return array (  '_controller' => 'assetic.controller:render',  'name' => '8fed0c3',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_8fed0c3',);
-            }
-
-            // _assetic_8fed0c3_0
-            if ($pathinfo === '/css/8fed0c3_part_1.css') {
-                return array (  '_controller' => 'assetic.controller:render',  'name' => '8fed0c3',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_8fed0c3_0',);
             }
 
         }
 
-        if (0 === strpos($pathinfo, '/js/fe10066')) {
-            // _assetic_fe10066
-            if ($pathinfo === '/js/fe10066.js') {
-                return array (  '_controller' => 'assetic.controller:render',  'name' => 'fe10066',  'pos' => NULL,  '_format' => 'js',  '_route' => '_assetic_fe10066',);
+        if (0 === strpos($pathinfo, '/fonts/glyphicons-halflings-regular')) {
+            // _assetic_bootstrap_glyphicons_ttf
+            if ($pathinfo === '/fonts/glyphicons-halflings-regular.ttf') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_glyphicons_ttf',  'pos' => NULL,  '_format' => 'ttf',  '_route' => '_assetic_bootstrap_glyphicons_ttf',);
             }
 
-            // _assetic_fe10066_0
-            if ($pathinfo === '/js/fe10066_part_1.js') {
-                return array (  '_controller' => 'assetic.controller:render',  'name' => 'fe10066',  'pos' => 0,  '_format' => 'js',  '_route' => '_assetic_fe10066_0',);
+            // _assetic_bootstrap_glyphicons_ttf_0
+            if ($pathinfo === '/fonts/glyphicons-halflings-regular_glyphicons-halflings-regular_1.ttf') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_glyphicons_ttf',  'pos' => 0,  '_format' => 'ttf',  '_route' => '_assetic_bootstrap_glyphicons_ttf_0',);
+            }
+
+            // _assetic_bootstrap_glyphicons_eot
+            if ($pathinfo === '/fonts/glyphicons-halflings-regular.eot') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_glyphicons_eot',  'pos' => NULL,  '_format' => 'eot',  '_route' => '_assetic_bootstrap_glyphicons_eot',);
+            }
+
+            // _assetic_bootstrap_glyphicons_eot_0
+            if ($pathinfo === '/fonts/glyphicons-halflings-regular_glyphicons-halflings-regular_1.eot') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_glyphicons_eot',  'pos' => 0,  '_format' => 'eot',  '_route' => '_assetic_bootstrap_glyphicons_eot_0',);
+            }
+
+            // _assetic_bootstrap_glyphicons_svg
+            if ($pathinfo === '/fonts/glyphicons-halflings-regular.svg') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_glyphicons_svg',  'pos' => NULL,  '_format' => 'svg',  '_route' => '_assetic_bootstrap_glyphicons_svg',);
+            }
+
+            // _assetic_bootstrap_glyphicons_svg_0
+            if ($pathinfo === '/fonts/glyphicons-halflings-regular_glyphicons-halflings-regular_1.svg') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_glyphicons_svg',  'pos' => 0,  '_format' => 'svg',  '_route' => '_assetic_bootstrap_glyphicons_svg_0',);
+            }
+
+            // _assetic_bootstrap_glyphicons_woff
+            if ($pathinfo === '/fonts/glyphicons-halflings-regular.woff') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_glyphicons_woff',  'pos' => NULL,  '_format' => 'woff',  '_route' => '_assetic_bootstrap_glyphicons_woff',);
+            }
+
+            // _assetic_bootstrap_glyphicons_woff_0
+            if ($pathinfo === '/fonts/glyphicons-halflings-regular_glyphicons-halflings-regular_1.woff') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_glyphicons_woff',  'pos' => 0,  '_format' => 'woff',  '_route' => '_assetic_bootstrap_glyphicons_woff_0',);
+            }
+
+        }
+
+        if (0 === strpos($pathinfo, '/assetic')) {
+            if (0 === strpos($pathinfo, '/assetic/jquery')) {
+                // _assetic_jquery
+                if ($pathinfo === '/assetic/jquery.js') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'jquery',  'pos' => NULL,  '_format' => 'js',  '_route' => '_assetic_jquery',);
+                }
+
+                // _assetic_jquery_0
+                if ($pathinfo === '/assetic/jquery_jquery_1.js') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'jquery',  'pos' => 0,  '_format' => 'js',  '_route' => '_assetic_jquery_0',);
+                }
+
+            }
+
+            if (0 === strpos($pathinfo, '/assetic/base')) {
+                // _assetic_base
+                if ($pathinfo === '/assetic/base.js') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'base',  'pos' => NULL,  '_format' => 'js',  '_route' => '_assetic_base',);
+                }
+
+                // _assetic_base_0
+                if ($pathinfo === '/assetic/base_base_1.js') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'base',  'pos' => 0,  '_format' => 'js',  '_route' => '_assetic_base_0',);
+                }
+
+            }
+
+        }
+
+        if (0 === strpos($pathinfo, '/css/fddb9b6')) {
+            // _assetic_fddb9b6
+            if ($pathinfo === '/css/fddb9b6.css') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => 'fddb9b6',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_fddb9b6',);
+            }
+
+            // _assetic_fddb9b6_0
+            if ($pathinfo === '/css/fddb9b6_part_1.css') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => 'fddb9b6',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_fddb9b6_0',);
+            }
+
+        }
+
+        if (0 === strpos($pathinfo, '/js/0b7d4ae')) {
+            // _assetic_0b7d4ae
+            if ($pathinfo === '/js/0b7d4ae.js') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => '0b7d4ae',  'pos' => NULL,  '_format' => 'js',  '_route' => '_assetic_0b7d4ae',);
+            }
+
+            if (0 === strpos($pathinfo, '/js/0b7d4ae_part_')) {
+                // _assetic_0b7d4ae_0
+                if ($pathinfo === '/js/0b7d4ae_part_1.js') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => '0b7d4ae',  'pos' => 0,  '_format' => 'js',  '_route' => '_assetic_0b7d4ae_0',);
+                }
+
+                // _assetic_0b7d4ae_1
+                if ($pathinfo === '/js/0b7d4ae_part_2.js') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => '0b7d4ae',  'pos' => 1,  '_format' => 'js',  '_route' => '_assetic_0b7d4ae_1',);
+                }
+
+                // _assetic_0b7d4ae_2
+                if ($pathinfo === '/js/0b7d4ae_part_3.js') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => '0b7d4ae',  'pos' => 2,  '_format' => 'js',  '_route' => '_assetic_0b7d4ae_2',);
+                }
+
             }
 
         }
@@ -176,6 +270,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // fos_js_routing_js
+        if (0 === strpos($pathinfo, '/js/routing') && preg_match('#^/js/routing(?:\\.(?P<_format>js|json))?$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'fos_js_routing_js')), array (  '_controller' => 'fos_js_routing.controller:indexAction',  '_format' => 'js',));
+        }
+
         // idg_user_control_homepage
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {
@@ -185,22 +284,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'IDG\\UserControlBundle\\Controller\\DefaultController::indexAction',  '_route' => 'idg_user_control_homepage',);
         }
 
-        // fos_js_routing_js
-        if (0 === strpos($pathinfo, '/js/routing') && preg_match('#^/js/routing(?:\\.(?P<_format>js|json))?$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'fos_js_routing_js')), array (  '_controller' => 'fos_js_routing.controller:indexAction',  '_format' => 'js',));
-        }
-
         if (0 === strpos($pathinfo, '/user')) {
             // user_bundle_routing
             if ($pathinfo === '/user/ajax/getUsers') {
-                if ($this->context->getMethod() != 'POST') {
-                    $allow[] = 'POST';
-                    goto not_user_bundle_routing;
-                }
-
                 return array (  '_controller' => 'IDG\\UserControlBundle\\Controller\\DefaultController::getUsersAction',  '_route' => 'user_bundle_routing',);
             }
-            not_user_bundle_routing:
 
             // new_user_routing
             if (rtrim($pathinfo, '/') === '/user/new') {
@@ -227,6 +315,75 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 }
 
                 return array (  '_controller' => 'IDG\\UserControlBundle\\Controller\\DefaultController::getUserCountAction',  '_route' => 'get_user_count_routing',);
+            }
+
+            // delete_user_routing
+            if (rtrim($pathinfo, '/') === '/user/delete') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'delete_user_routing');
+                }
+
+                return array (  '_controller' => 'IDG\\UserControlBundle\\Controller\\DefaultController::deleteUserAction',  '_route' => 'delete_user_routing',);
+            }
+
+            // edit_user_routing
+            if (rtrim($pathinfo, '/') === '/user/edit') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'edit_user_routing');
+                }
+
+                return array (  '_controller' => 'IDG\\UserControlBundle\\Controller\\DefaultController::editUserAction',  '_route' => 'edit_user_routing',);
+            }
+
+        }
+
+        if (0 === strpos($pathinfo, '/list')) {
+            if (0 === strpos($pathinfo, '/lists')) {
+                // get_lists_routing
+                if (rtrim($pathinfo, '/') === '/lists') {
+                    if (substr($pathinfo, -1) !== '/') {
+                        return $this->redirect($pathinfo.'/', 'get_lists_routing');
+                    }
+
+                    return array (  '_controller' => 'IDG\\UserControlBundle\\Controller\\DefaultController::getListsAction',  '_route' => 'get_lists_routing',);
+                }
+
+                // new_lists_routing
+                if (rtrim($pathinfo, '/') === '/lists/new') {
+                    if (substr($pathinfo, -1) !== '/') {
+                        return $this->redirect($pathinfo.'/', 'new_lists_routing');
+                    }
+
+                    return array (  '_controller' => 'IDG\\UserControlBundle\\Controller\\DefaultController::newListsFormAction',  '_route' => 'new_lists_routing',);
+                }
+
+                // new_list_save_routing
+                if (rtrim($pathinfo, '/') === '/lists/saveNew') {
+                    if (substr($pathinfo, -1) !== '/') {
+                        return $this->redirect($pathinfo.'/', 'new_list_save_routing');
+                    }
+
+                    return array (  '_controller' => 'IDG\\UserControlBundle\\Controller\\DefaultController::saveNewListAction',  '_route' => 'new_list_save_routing',);
+                }
+
+                // get_lists_count_routing
+                if (rtrim($pathinfo, '/') === '/lists/count') {
+                    if (substr($pathinfo, -1) !== '/') {
+                        return $this->redirect($pathinfo.'/', 'get_lists_count_routing');
+                    }
+
+                    return array (  '_controller' => 'IDG\\UserControlBundle\\Controller\\DefaultController::getListsCountAction',  '_route' => 'get_lists_count_routing',);
+                }
+
+            }
+
+            // delete_list_routing
+            if (rtrim($pathinfo, '/') === '/list/delete') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'delete_list_routing');
+                }
+
+                return array (  '_controller' => 'IDG\\UserControlBundle\\Controller\\DefaultController::deleteListAction',  '_route' => 'delete_list_routing',);
             }
 
         }

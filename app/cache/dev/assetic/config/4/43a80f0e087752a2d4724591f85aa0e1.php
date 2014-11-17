@@ -2,19 +2,19 @@
 
 // ::base.html.twig
 return array (
-  '8fed0c3' => 
+  'fddb9b6' => 
   array (
     0 => 
     array (
-      0 => '@bootstrap',
+      0 => '@bootstrap_css',
     ),
     1 => 
     array (
     ),
     2 => 
     array (
-      'output' => '_controller/css/8fed0c3.css',
-      'name' => '8fed0c3',
+      'output' => '_controller/css/fddb9b6.css',
+      'name' => 'fddb9b6',
       'debug' => NULL,
       'combine' => NULL,
       'vars' => 
@@ -22,19 +22,21 @@ return array (
       ),
     ),
   ),
-  'fe10066' => 
+  '0b7d4ae' => 
   array (
     0 => 
     array (
-      0 => '@jquery2',
+      0 => '@jquery',
+      1 => '@bootstrap_js',
+      2 => '@base',
     ),
     1 => 
     array (
     ),
     2 => 
     array (
-      'output' => '_controller/js/fe10066.js',
-      'name' => 'fe10066',
+      'output' => '_controller/js/0b7d4ae.js',
+      'name' => '0b7d4ae',
       'debug' => NULL,
       'combine' => NULL,
       'vars' => 

@@ -2327,7 +2327,7 @@ $this->container = null;
 }
 public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
 {
- if (false === $this->booted) {
+if (false === $this->booted) {
 $this->boot();
 }
 return $this->getHttpKernel()->handle($request, $type, $catch);
