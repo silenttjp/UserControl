@@ -82,7 +82,7 @@ class DefaultController extends Controller
             $user->save();
             
             $id = $user->getId();
-            User_ListQuery::create()->filterByUserId($id)->delete();
+            //User_ListQuery::create()->filterByUserId($id)->delete();
             
             $User_List = new User_List();
             $User_List->setListId($request->request->get('user_list'));
