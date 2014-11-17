@@ -58,7 +58,7 @@ class DefaultController extends Controller
         
         $list_form = $this->createForm(new ListsType(), $lists);
         
-        return $this->render('IDGUserControlBundle:list:new.html.twig', array(
+        return $this->render('IDGUserControlBundle:lists:new.html.twig', array(
             'form' => $list_form->createView(),
         ));
         
