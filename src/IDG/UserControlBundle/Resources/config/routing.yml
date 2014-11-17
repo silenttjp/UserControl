@@ -43,3 +43,9 @@ new_list_save_routing:
 get_lists_count_routing:
     pattern:  /lists/count/
     defaults: { _controller: IDGUserControlBundle:Default:getListsCount }
+    
+delete_list_routing:
+    pattern:  /list/delete/
+    defaults: { _controller: IDGUserControlBundle:Default:deleteListr }
+    
+    

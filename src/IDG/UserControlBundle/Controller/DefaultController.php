@@ -122,10 +122,10 @@ class DefaultController extends Controller
     
     public function deletelistAction(Request $request){
         $lists = ListsQuery::create()->findPk($request->request->get('id'));
-        $user->delete();
+        $lists->delete();
     
     
-        return $this->redirect($this->generateUrl('user_bundle_routing'));
+        return $this->redirect($this->generateUrl('get_lists_routing'));
     }
     
     

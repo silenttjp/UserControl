@@ -113,6 +113,22 @@
    	   	   	   	 });
        });
 
+       $('#user_list').on("click",".list_id", function(){
+           var id = $(this).attr("ref");
+
+         $.post('{{path('delete_list_routing')}}',{
+             id:id
+  	        },function(data){
+  	        
+             $('#user_list').html(data); 
+      	 $.post('{{path('get_lists_count_routing')}}',{
+    	    	getUser:1
+           },function(data){
+         	    $('#lists_count').html(data);          
+           });   
+  	   	   	 });
+        });
+
        $('#user_list').on("click",".user_edit", function(){
            var id = $(this).attr("ref");
 
