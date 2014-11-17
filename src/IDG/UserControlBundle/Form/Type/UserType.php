@@ -26,9 +26,7 @@ class UserType extends BaseAbstractType
         $builder->add('lastName','text', array("required"=>true));
         $builder->add('id','hidden');
 
-        $builder->add('Lists', 'collection', array(
-            'type' => new ListsType()
-        ));
+
         $builder->add('Lists', 'model', array(
             'class' => 'IDG\UserControlBundle\Models\Lists',
             'required' => true,
