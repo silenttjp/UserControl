@@ -24,5 +24,10 @@ class ListsType extends BaseAbstractType
         $builder->add('id','hidden');
     }
     
-
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'IDG\UserControlBundle\Models\Lists',
+        ));
+    }
 }

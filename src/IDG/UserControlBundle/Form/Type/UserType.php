@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use IDG\UserControlBundle\Models\Lists;
 use IDG\UserControlBundle\Form\Type\ListsType;
 use IDG\UserControlBundle\Models\ListsQuery;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 
 class UserType extends BaseAbstractType
@@ -25,7 +26,7 @@ class UserType extends BaseAbstractType
         $builder->add('lastName','text', array("required"=>true));
         $builder->add('id','hidden');
 
-        $builder->add('Lists', 'class', array(
+        $builder->add('Lists', 'model', array(
             'type' => new ListsType()
         ));
         
@@ -34,5 +35,10 @@ class UserType extends BaseAbstractType
         
     }
     
-
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'IDG\UserControlBundle\Models\User',
+        ));
+    }
 }
