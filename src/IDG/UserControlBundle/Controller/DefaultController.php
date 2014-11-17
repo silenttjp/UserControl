@@ -50,10 +50,10 @@ class DefaultController extends Controller
         
             $user = new User();
             $request = $this->getRequest();
-            print_r($request->request->all());exit;
-            if(null !== ($request->request->get('user_id'))){
+
+
                 $user->setId($request->request->get('user_id'));
-            }
+
             
             $user->setFirstName($request->request->get('user_firstname'));
             $user->setLastName($request->request->get('user_lastname'));
