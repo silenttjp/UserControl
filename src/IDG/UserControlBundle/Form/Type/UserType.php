@@ -30,7 +30,7 @@ class UserType extends BaseAbstractType
             'multiple' => false,
             'expanded' => false,
             'label' => 'Add User To List',
-            'query' => ListsQuery::create()->orderByName(),
+            'query' => ListsQuery::create()->find(),
         ));
         
     }
