@@ -9,7 +9,7 @@
   <ul class="list-group">
       {% for list in lists %}
     <li class="list-group-item" id="user-{{ list.id }}">{{ list.Name }}
-        <button ref="{{ list.id }}" class="btn btn-danger btn-xs glyphicon glyphicon-remove pull-right user_id"></button>
+        <button ref="{{ list.id }}" class="btn btn-danger btn-xs glyphicon glyphicon-remove pull-right list_id"></button>
         <button ref="{{ list.id }}" class="btn btn-success btn-xs glyphicon glyphicon-pencil pull-right user_edit"></button>
 
     </li>

@@ -39,3 +39,7 @@ new_lists_routing:
 new_list_save_routing:
     pattern:  /lists/saveNew/
     defaults: { _controller: IDGUserControlBundle:Default:saveNewList }
+    
+get_lists_count_routing:
+    pattern:  /lists/count/
+    defaults: { _controller: IDGUserControlBundle:Default:getListsCount }

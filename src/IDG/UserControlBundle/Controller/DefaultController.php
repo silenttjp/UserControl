@@ -107,12 +107,25 @@ class DefaultController extends Controller
         return $this->render('IDGUserControlBundle:User:userCount.html.twig', array(  'user_count' => count($Users)));
     }
     
+    public function getListsCountAction(Request $request){
+        $Lists = ListsQuery::create()->find();
+        return $this->render('IDGUserControlBundle:lists:listsCount.html.twig', array(  'lists_count' => count($Lists)));
+    }
+    
     public function deleteUserAction(Request $request){
         $user = UserQuery::create()->findPk($request->request->get('id'));
         $user->delete();
         
         
        return $this->redirect($this->generateUrl('user_bundle_routing'));
+    }
+    
+    public function deletelistAction(Request $request){
+        $lists = ListsQuery::create()->findPk($request->request->get('id'));
+        $user->delete();
+    
+    
+        return $this->redirect($this->generateUrl('user_bundle_routing'));
     }
     
     
