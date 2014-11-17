@@ -50,7 +50,7 @@ class DefaultController extends Controller
         
             $user = new User();
             $request = $this->getRequest();
-
+            print_r($request->request->all());
             if(null !== ($request->request->get('id'))){
                 $user = UserQuery::create()->findPk($request->request->get('user_id'));
             } else {
