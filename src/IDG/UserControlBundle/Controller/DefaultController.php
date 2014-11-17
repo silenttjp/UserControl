@@ -51,7 +51,7 @@ class DefaultController extends Controller
             $user = new User();
             $request = $this->getRequest();
 
-            print_r($request->request->all());exit;
+
                 $user->setId($request->request->get('user_id'));
 
             

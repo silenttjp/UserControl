@@ -40,10 +40,12 @@
 
     	    var FN = $('#user_firstName').val();
     	    var LN = $('#user_lastName').val();
+    	    var id = $('#user_id').val();
     	    
     	    $.post('{{path('new_user_save_routing')}}',{
     	    	user_firstname:FN,
-    	    	user_lastname:LN
+    	    	user_lastname:LN,
+    	    	user_id:id
             },function(data){
          	   $('#user_list').html(data); 
           	  $.post('{{path('get_user_count_routing')}}',{
