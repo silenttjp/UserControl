@@ -58,7 +58,7 @@
     	    var LN = $('#user_lastName').val();
     	    var id = $('#user_id').val();
     	    var list = $( "#user_lists option:selected" ).val();
-    	    
+    	    alert(list);
     	    $.post('{{path('new_user_save_routing')}}',{
     	    	user_firstname:FN,
     	    	user_lastname:LN,
