@@ -19,5 +19,6 @@ class ListsType extends BaseAbstractType
     {
         $builder->add('name');
         $builder->add('active','hidden');
+        $builder->add('id','hidden');
     }
 }

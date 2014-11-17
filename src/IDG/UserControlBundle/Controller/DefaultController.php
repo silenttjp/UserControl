@@ -65,12 +65,7 @@ class DefaultController extends Controller
     }
     
     public function saveNewUserAction(){
-        $user = new User();
 
-        
-
-        
-            $user = new User();
             $request = $this->getRequest();
             
             if(empty($request->request->get('id'))){
@@ -86,6 +81,25 @@ class DefaultController extends Controller
         
         $Users = UserQuery::create()->find();
         return $this->render('IDGUserControlBundle:User:list.html.twig',array("users" => $Users));
+    }
+    
+    public function saveNewListAction(){
+
+        $request = $this->getRequest();
+    
+        if(empty($request->request->get('id'))){
+            $lists = ListsQuery::create()->findPk($request->request->get('lists_id'));
+        } else {
+            $lists = new Lists();
+        }
+    
+        $lists->setFirstName($request->request->get('lists_name'));
+        $lists->setActive('1');
+        $lists->save();
+    
+    
+        $Lists = ListsQuery::create()->find();
+        return $this->render('IDGUserControlBundle:lists:list.html.twig',array("lists" => $Lists));
     }
     
     public function getUserCountAction(Request $request){
