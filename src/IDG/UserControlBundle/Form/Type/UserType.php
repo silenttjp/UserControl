@@ -25,9 +25,9 @@ class UserType extends BaseAbstractType
         $builder->add('lastName','text', array("required"=>true));
         $builder->add('id','hidden');
 
-        $builder->add('Lists', 'collection', array(
+        /*$builder->add('Lists', 'collection', array(
             'type' => new ListsType()
-        ));
+        ));*/
         
     }
     
