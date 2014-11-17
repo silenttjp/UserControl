@@ -145,7 +145,7 @@
            $.post('{{path('new_lists_routing')}}',{
                id:id
            },function(data){
-                  $('#user-' + id).html(data);             
+                  $('#lists-' + id).html(data);             
            });
         });
     }); 
