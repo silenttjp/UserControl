@@ -32,7 +32,7 @@ class UserType extends BaseAbstractType
             'required' => true,
             'multiple' => false,
             'expanded' => false,
-            'label' => 'Pick a List',
+            'label' => 'Add User To List',
             'query' => ListsQuery::create()->orderByName(),
         ));
         
