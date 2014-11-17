@@ -27,3 +27,7 @@ delete_user_routing:
 edit_user_routing:
     pattern:  /user/edit/
     defaults: { _controller: IDGUserControlBundle:Default:editUser }
+   
+get_lists_routing:
+    pattern:  /lists/
+    defaults: { _controller: IDGUserControlBundle:Default:getLists }

@@ -1,33 +1,44 @@
 {% extends '::base.html.twig' %}
 {% block body %}
 <div class="container">
-   <div class="col-sm-12">
-
-
-            <div class="col-sm-6">
-            <div class="panel panel-default">
-              <div class="panel-body">
-               User panel: 
-               <span id="user_count"> 
-                <button class="btn btn-xs btn-primary" id="view_users" type="button">
-                     Number Of Users: <span class="badge">{{ user_count }}</span>
-                </button>
-                </span>
-                <button class="btn btn-xs btn-success align-right" id="add_user" type="button">
-                    Add User
-                </button>
-                <span id="lists_count"> 
-                <button class="btn btn-xs btn-primary" id="view_lists" type="button">
-                     Number Of Lists: <span class="badge">{{ lists_count }}</span>
-                </button>
-                </span>
-                <br><br>
-                <div id="user_list"></div>
+            <div class="col-sm-12">
+                    <div class="col-sm-6">
+                            <div class="panel panel-default">
+                                    <div class="panel-body">
+                                            <span id="user_count"> 
+                                                    <button class="btn btn-xs btn-primary" id="view_users" type="button">
+                                                            Number Of Users: <span class="badge">{{ user_count }}</span>
+                                                    </button>
+                                            </span>
+                                            <button class="btn btn-xs btn-success align-right" id="add_user" type="button">
+                                                    Add User
+                                            </button>
+                                    </div>
+                            </div>
+                    </div>
+             </div>
+             <div class="col-sm-12">
+                    <div class="col-sm-6">
+                            <div class="panel panel-default">
+                                    <div class="panel-body">
+                                            <span id="lists_count"> 
+                                                    <button class="btn btn-xs btn-primary" id="view_lists" type="button">
+                                                            Number Of Lists: <span class="badge">{{ lists_count }}</span>
+                                                    </button>
+                                            </span>
+                                    </div>
+                            </div>
+                    </div>
               </div>
-            </div>
-       
-    </div>
-</div>        
-
+              <div class="col-sm-12">
+                    <div class="col-sm-6">
+                            <div class="panel panel-default">
+                                    <div class="panel-body">
+                                            <div id="user_list"></div>
+                                    </div>
+                            </div>        
+                    </div>
+              </div>
+</div>
  
 {% endblock %}

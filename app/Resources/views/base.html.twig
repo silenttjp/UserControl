@@ -27,6 +27,14 @@
                    $('#user_list').html(data);             
             });
         });
+
+        $('#view_lists').click(function(){
+        	$.post('{{path('get_lists_routing')}}',{
+                getLists:1
+            },function(data){
+                   $('#user_list').html(data);             
+            });
+        });
         
         $('#add_user').click(function(){
         	$.post('{{path('new_user_routing')}}',{
@@ -83,11 +91,7 @@
            },function(data){
                   $('#user-' + id).html(data);             
            });
-        
-
-
-       
-    });
+        });
     }); 
     </script>
 </body>

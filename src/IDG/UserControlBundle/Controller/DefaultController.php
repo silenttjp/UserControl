@@ -84,7 +84,14 @@ class DefaultController extends Controller
        return $this->redirect($this->generateUrl('user_bundle_routing'));
     }
     
-
+    
+    public function getListsAction(){
+         
+        $Lists = ListsQuery::create()->find();
+         
+    
+        return $this->render('IDGUserControlBundle:User:list.html.twig',array("users" => $Users));
+    }
     
     
 }
