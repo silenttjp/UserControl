@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace IDG\UserControlBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,7 +16,7 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        $Users = UserQuery::create()->find();
+        $Users = UserQuery::create()->fin();
 
         return $this->render('IDGUserControlBundle:User:user.html.twig', array(  'user_count' => count($Users)));
     }
